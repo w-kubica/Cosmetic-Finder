@@ -1,9 +1,8 @@
 ﻿using Refit;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -22,33 +21,19 @@ namespace Cosmetic_Finder.Importer
 
                 var productsInCategories = RestService.For<ICategoriesApi>("https://www.rossmann.pl/products/api");
                 var allProducts = await productsInCategories.Get(idCategory);
-
-                var listOfProductId = allProducts.Data.products.Select(w => w.Id);
-
-                //var options = new JsonSerializerOptions { WriteIndented = true };
-                //string jsonString = JsonSerializer.Serialize(allProducts, options);
-                //Console.WriteLine(jsonString);
-
-                //var path = @"C:\Users\Weronika\Desktop\file.txt";
-                //using (StreamWriter sw = File.AppendText(path))
-                //{
-                //    sw.WriteLine($"KATEGORIA: {idCategory},{nameOfCategory}");
-                //    sw.WriteLine(jsonString);
-                //}
-                foreach (var id in listOfProductId)
+             
+                foreach (var iteams in allProducts.Data.products)
                 {
                     var infoProduct = RestService.For<IAdditionalInfo>("https://www.rossmann.pl/products/api");
-                    var listInfo = await infoProduct.Get(id);
-
+                    var listInfo = await infoProduct.Get(iteams.Id);
+                    
                     var compose = string.Join("", listInfo.Data
                         .Where(h => h.type == "CharacterComponents")
                         .Select(x => x.html));
 
-                   // Console.WriteLine("OBROBIONY JSON:");
-                  //  Console.WriteLine(compose);
-
                     HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
                     htmlDoc.LoadHtml(compose);
+
                     //usuwa style
                     htmlDoc.DocumentNode.Descendants()
                         .Where(n => n.Name == "script" || n.Name == "style")
@@ -60,8 +45,10 @@ namespace Cosmetic_Finder.Importer
                     string noHTML = Regex.Replace(nodes, @"<[^>]+>|&nbsp|&lt|&reg;", "").Trim();
 
                     Console.WriteLine("OBROBIONY HTML");
-                    Console.WriteLine($"Id produktu: {id}");
+                    Console.WriteLine($"Id produktu: {iteams.Id}");
+                    Console.WriteLine($"URL: https://www.rossmann.pl{iteams.NavigateUrl}");
                     Console.WriteLine(noHTML);
+
                 }
             }
         }
@@ -105,7 +92,6 @@ namespace Cosmetic_Finder.Importer
             //{8445, "Zdrowie"},
         };
     }
-
     public interface IAdditionalInfo
     {
         [Get("/Products/{productId}/additionals")]
@@ -116,7 +102,6 @@ namespace Cosmetic_Finder.Importer
         public string type { get; set; }
         public string html { get; set; }
     }
-
     public class ListAdditionalInfo
     {
         public List<AdditionalInfo> Data { get; set; }
