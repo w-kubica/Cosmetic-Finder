@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace Cosmetic_Finder.Importer
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             await ImportData();
         }
@@ -20,11 +21,12 @@ namespace Cosmetic_Finder.Importer
         private static async Task ImportData()
         {
             Categories categories = new Categories();
-            foreach (var category in categories.CategoriesDic)
+            foreach (var category in categories.CosmeticCategories)
             {
                 var products = await GettingProductsByCategoryId(category);
+
                 
-                foreach (var product in products.Data.products)
+                foreach (var product in products.Data.Products)
                 {
                     await GettingComposeByProductId(product);
                 }
@@ -38,10 +40,10 @@ namespace Cosmetic_Finder.Importer
             var productAdditionals = await productsApi.Get(product.Id);
 
             var productCompose = string.Join("", productAdditionals.Data
-                .Where(h => h.type == "CharacterComponents")
-                .Select(x => x.html));
+                .Where(h => h.Type == "CharacterComponents")
+                .Select(x => x.Html));
 
-            HtmlAgilityPack.HtmlDocument html = new HtmlAgilityPack.HtmlDocument();
+            var html = new HtmlDocument();
             html.LoadHtml(productCompose);
 
             //usuwa style
@@ -51,13 +53,13 @@ namespace Cosmetic_Finder.Importer
                 .ForEach(n => n.Remove());
 
             //usuwa twardą spację
-            string nodes = html.DocumentNode.InnerText;
-            string noHTML = Regex.Replace(nodes, @"<[^>]+>|&nbsp|&lt|&reg;", "").Trim();
+            var nodes = html.DocumentNode.InnerText;
+            var noHtml = Regex.Replace(nodes, @"<[^>]+>|&nbsp|&lt|&reg;", "").Trim();
 
             Console.WriteLine("OBROBIONY HTML");
             Console.WriteLine($"Id produktu: {product.Id}");
             Console.WriteLine($"URL: https://www.rossmann.pl{product.NavigateUrl}");
-            Console.WriteLine(noHTML);
+            Console.WriteLine(noHtml);
         }
 
         private static async Task<ResponseCategory> GettingProductsByCategoryId(KeyValuePair<int, string> category)

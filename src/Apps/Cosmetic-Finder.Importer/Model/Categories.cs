@@ -4,7 +4,7 @@ namespace Cosmetic_Finder.Importer.Model
 {
     public class Categories
     {
-        public readonly Dictionary<int, string> CategoriesDic = new ()
+        public readonly Dictionary<int, string> CosmeticCategories = new ()
         {
             {8686, "Twarz"},
             //{8528, "Makijaż"},

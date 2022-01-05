@@ -18,7 +18,7 @@ namespace Cosmetic_Finder.Importer.Response
 
     public class Data
     {
-        public List<Product> products { get; set; }
-        public int totalCount { get; set; }
+        public List<Product> Products { get; set; }
+        public int TotalCount { get; set; }
     }
 }

@@ -9,8 +9,8 @@ namespace Cosmetic_Finder.Importer.Response
 
     public class Datum
     {
-        public string type { get; set; }
-        public string html { get; set; }
+        public string Type { get; set; }
+        public string Html { get; set; }
     }
 
 }
