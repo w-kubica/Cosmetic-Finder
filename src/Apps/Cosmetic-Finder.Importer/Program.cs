@@ -1,109 +1,76 @@
-﻿using Refit;
+﻿using Cosmetic_Finder.Importer.Gateways;
+using Cosmetic_Finder.Importer.Model;
+using Cosmetic_Finder.Importer.Response;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace Cosmetic_Finder.Importer
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
-            Category category = new Category();
-            foreach (var item in category.ListOfCategory)
+            await ImportData();
+        }
+
+        private static async Task ImportData()
+        {
+            Categories categories = new Categories();
+            foreach (var category in categories.CosmeticCategories)
             {
-                var idCategory = item.Key;
-                var nameOfCategory = item.Value;
-                Console.WriteLine($"KATEGORIA: {idCategory},{nameOfCategory}");
+                var products = await GettingProductsByCategoryId(category);
 
-                var productsInCategories = RestService.For<ICategoriesApi>("https://www.rossmann.pl/products/api");
-                var allProducts = await productsInCategories.Get(idCategory);
-             
-                foreach (var iteams in allProducts.Data.products)
+                
+                foreach (var product in products.Data.Products)
                 {
-                    var infoProduct = RestService.For<IAdditionalInfo>("https://www.rossmann.pl/products/api");
-                    var listInfo = await infoProduct.Get(iteams.Id);
-                    
-                    var compose = string.Join("", listInfo.Data
-                        .Where(h => h.type == "CharacterComponents")
-                        .Select(x => x.html));
-
-                    HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
-                    htmlDoc.LoadHtml(compose);
-
-                    //usuwa style
-                    htmlDoc.DocumentNode.Descendants()
-                        .Where(n => n.Name == "script" || n.Name == "style")
-                        .ToList()
-                        .ForEach(n => n.Remove());
-
-                    //usuwa twardą spację
-                    string nodes = htmlDoc.DocumentNode.InnerText;
-                    string noHTML = Regex.Replace(nodes, @"<[^>]+>|&nbsp|&lt|&reg;", "").Trim();
-
-                    Console.WriteLine("OBROBIONY HTML");
-                    Console.WriteLine($"Id produktu: {iteams.Id}");
-                    Console.WriteLine($"URL: https://www.rossmann.pl{iteams.NavigateUrl}");
-                    Console.WriteLine(noHTML);
-
+                    await GettingComposeByProductId(product);
                 }
             }
         }
-    }
 
-    public interface ICategoriesApi
-    {
-        [Get("/Products?CategoryId={key}&PageSize=5")]
-        Task<Root> Get(int key);
-    }
-    public class Product
-    {
-        public int Id { get; set; }
-        public string NavigateUrl { get; set; }
-        // public string brand { get; set; }
-        // public string caption { get; set; }
-        // public string Category { get; set; }
-    }
-    public class Root
-    {
-        public Data Data { get; set; }
-    }
-    public class Data
-    {
-        public List<Product> products { get; set; }
-        public int totalCount { get; set; }
-    }
-    public class Category
-    {
-        public Dictionary<int, string> ListOfCategory = new Dictionary<int, string>()
+        private static async Task GettingComposeByProductId(Product product)
         {
-            {8686, "Twarz"},
-            //{8528, "Makijaż"},
-            //{8655, "Włosy"},
-            //{8625, "Ciało"},
-            //{8576, "Higiena"},
-           // {9220, "Ochrona antybakteryjna"},
-            //{8512, "Perfumy"},
-            //{8471, "Mama i Dziecko"},
-            //{9246, "Mężczyzna"},
-            //{8445, "Zdrowie"},
-        };
-    }
-    public interface IAdditionalInfo
-    {
-        [Get("/Products/{productId}/additionals")]
-        Task<ListAdditionalInfo> Get(int productId);
-    }
-    public class AdditionalInfo
-    {
-        public string type { get; set; }
-        public string html { get; set; }
-    }
-    public class ListAdditionalInfo
-    {
-        public List<AdditionalInfo> Data { get; set; }
+            var productsApi =
+                RestService.For<IProductsAdditionalsApi>("https://www.rossmann.pl/products/api");
+            var productAdditionals = await productsApi.Get(product.Id);
+
+            var productCompose = string.Join("", productAdditionals.Data
+                .Where(h => h.Type == "CharacterComponents")
+                .Select(x => x.Html));
+
+            var html = new HtmlDocument();
+            html.LoadHtml(productCompose);
+
+            //usuwa style
+            html.DocumentNode.Descendants()
+                .Where(n => n.Name is "script" or "style")
+                .ToList()
+                .ForEach(n => n.Remove());
+
+            //usuwa twardą spację
+            var nodes = html.DocumentNode.InnerText;
+            var noHtml = Regex.Replace(nodes, @"<[^>]+>|&nbsp|&lt|&reg;", "").Trim();
+
+            Console.WriteLine("OBROBIONY HTML");
+            Console.WriteLine($"Id produktu: {product.Id}");
+            Console.WriteLine($"URL: https://www.rossmann.pl{product.NavigateUrl}");
+            Console.WriteLine(noHtml);
+        }
+
+        private static async Task<ResponseCategory> GettingProductsByCategoryId(KeyValuePair<int, string> category)
+        {
+            var categoryId = category.Key;
+            var categoryName = category.Value;
+            Console.WriteLine($"KATEGORIA: {categoryId},{categoryName}");
+
+            var productsApi = RestService.For<ICategoriesApi>("https://www.rossmann.pl/products/api");
+            var products = await productsApi.Get(categoryId);
+            return products;
+        }
     }
 }
