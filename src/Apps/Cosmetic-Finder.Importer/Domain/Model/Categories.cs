@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmetic_Finder.Importer.Model
+namespace Cosmetic_Finder.Importer.Domain.Model
 {
     public static class Categories
     {
