@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Cosmetic_Finder.Importer.Response
+namespace Cosmetic_Finder.Importer.Infrastructure.Response
 {
-    public class ResponseCategory
+    public class ResponseProducts
     {
         public Data Data { get; set; }
 
@@ -11,9 +11,9 @@ namespace Cosmetic_Finder.Importer.Response
     {
         public int Id { get; set; }
         public string NavigateUrl { get; set; }
-        // public string brand { get; set; }
-        // public string caption { get; set; }
-        // public string Category { get; set; }
+        public string Brand { get; set; }
+        public string Caption { get; set; }
+        public string Category { get; set; }
     }
 
     public class Data
