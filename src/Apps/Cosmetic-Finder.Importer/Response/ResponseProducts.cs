@@ -2,7 +2,7 @@
 
 namespace Cosmetic_Finder.Importer.Response
 {
-    public class ResponseCategory
+    public class ResponseProducts
     {
         public Data Data { get; set; }
 
