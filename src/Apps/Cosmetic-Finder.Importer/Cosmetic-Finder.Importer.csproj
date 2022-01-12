@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Cosmetic_Finder.Importer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.39" />
     <PackageReference Include="Refit" Version="6.1.15" />
+    <PackageReference Include="SolrNet" Version="1.0.19" />
   </ItemGroup>
 
 </Project>

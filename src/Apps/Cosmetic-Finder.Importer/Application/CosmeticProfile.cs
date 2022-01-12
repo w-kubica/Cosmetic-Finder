@@ -20,12 +20,12 @@ namespace Cosmetic_Finder.Importer.Application
                     NavigateUrl = product.NavigateUrl,
                     Brand = product.Brand,
                     Caption = product.Caption,
-                    Category = product.Category
+                    Category = product.Category,
+                    Price = product.Price,
+                    Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose
+                    // todo: add remove find compose
                 };
-
-                cosmetic.Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose;
-                // todo: add remove find compose
-
+                
                 cosmetics.Add(cosmetic);
                 Console.WriteLine(cosmetic);
             }

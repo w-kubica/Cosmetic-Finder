@@ -14,6 +14,7 @@ namespace Cosmetic_Finder.Importer.Infrastructure.Response
         public string Brand { get; set; }
         public string Caption { get; set; }
         public string Category { get; set; }
+        public double Price { get; set; }
     }
 
     public class Data
