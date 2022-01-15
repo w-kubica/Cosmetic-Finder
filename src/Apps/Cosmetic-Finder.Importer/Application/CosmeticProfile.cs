@@ -8,7 +8,7 @@ namespace Cosmetic_Finder.Importer.Application
 {
     public static class CosmeticProfile
     {
-        public static IEnumerable<Cosmetic> MapToCosmetic(this IEnumerable<Product> products, List<Compose> composes)
+        public static IEnumerable<Cosmetic> ToDomainCosmetic(this IEnumerable<Product> products, List<Compose> composes)
         {
             var cosmetics = new List<Cosmetic>();
 
@@ -17,7 +17,7 @@ namespace Cosmetic_Finder.Importer.Application
                 Cosmetic cosmetic = new()
                 {
                     Id = product.Id,
-                    NavigateUrl = product.NavigateUrl,
+                    NavigateUrl = $"https://www.rossmann.pl{product.NavigateUrl}",
                     Brand = product.Brand,
                     Caption = product.Caption,
                     Category = product.Category,
@@ -25,11 +25,8 @@ namespace Cosmetic_Finder.Importer.Application
                     Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose
                     // todo: add remove find compose
                 };
-                
                 cosmetics.Add(cosmetic);
-                Console.WriteLine(cosmetic);
             }
-
             return cosmetics;
         }
     }

@@ -26,7 +26,7 @@ namespace Cosmetic_Finder.Importer.Infrastructure.Mappers
             return cosmetics.Select(b => b.ToInfrastructure());
         }
 
-        private static Cosmetic ToDomain(this SolrCosmetic solrCosmetic)
+        public static Cosmetic ToDomain(this SolrCosmetic solrCosmetic)
         {
             return new Cosmetic()
             {

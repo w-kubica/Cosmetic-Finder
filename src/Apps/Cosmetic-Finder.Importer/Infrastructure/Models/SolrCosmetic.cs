@@ -10,6 +10,8 @@ namespace Cosmetic_Finder.Importer.Infrastructure.Models
         public const string CosmeticCategory = "category";
         public const string CosmeticCompose = "compose";
         public const string CosmeticPrice = "price";
+        
+        public const string LowerCompose = "lowerCompose";
 
         [SolrUniqueKey(CosmeticId)]
         public int Id { get; set; }
@@ -31,5 +33,6 @@ namespace Cosmetic_Finder.Importer.Infrastructure.Models
         
         [SolrField(CosmeticPrice)]
         public double Price { get; set; }
+
     }
 }

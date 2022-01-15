@@ -4,6 +4,7 @@
 		<fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
 		<fieldType name="double" class="solr.DoublePointField" sortMissingLast="true" docValues="true" />
 		<fieldType name="int" class="solr.IntPointField" docValues="true"/>
+		<fieldType name="long" class="solr.LongPointField" docValues="true"/>	
 
 		<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
 			<analyzer type="index">
@@ -28,10 +29,11 @@
 		<field name="_root_" type="string" indexed="true" stored="false"/>
 
 		<!-- indexed and stored-->
-		<field name="compose"			type="string"			indexed="true" 	stored="true"   required="true"/>
+		<field name="id"                type="string"			indexed="true" 		stored="true" required="true" />
+		<field name="compose"			type="string"			indexed="true" 	    stored="true"   />
 
 		<!-- only stored -->
-		<field name="id"				type="int"			    indexed="false" 	stored="true" 	required="true"/>
+		
 		<field name="name"				type="string"			indexed="false" 	stored="true"/>
 		<field name="url"        		type="string"			indexed="false" 	stored="true"/>
 		<field name="brand"          	type="string"			indexed="false" 	stored="true"/>
