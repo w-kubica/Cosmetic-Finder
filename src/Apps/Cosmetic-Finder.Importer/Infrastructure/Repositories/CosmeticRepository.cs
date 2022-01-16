@@ -23,7 +23,7 @@ namespace Cosmetic_Finder.Importer.Infrastructure.Repositories
             return result.Status == 0;
         }
 
-        public static async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, bool contains, bool sortByPriceAsc, CancellationToken cancellationToken)
+        public static async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, bool shouldContainCompose, bool sortByPriceAsc, CancellationToken cancellationToken)
         {
             var solr = ServiceLocator.Current.GetInstance<ISolrOperations<SolrCosmetic>>();
             var options = new QueryOptions
@@ -34,14 +34,14 @@ namespace Cosmetic_Finder.Importer.Infrastructure.Repositories
             
             if (!string.IsNullOrEmpty(search))
             {
-                if (contains)
+                if (shouldContainCompose)
                 {
                     options.FilterQueries = new List<ISolrQuery>
                         {
                             new SolrQueryByField(SolrCosmetic.LowerCompose, search),
                         };
                 }
-                else if (!contains)
+                else
                 {
                     options.FilterQueries = new List<ISolrQuery>
                         {
