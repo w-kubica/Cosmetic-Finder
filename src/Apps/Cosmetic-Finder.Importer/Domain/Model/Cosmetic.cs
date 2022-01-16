@@ -1,6 +1,6 @@
 ﻿namespace Cosmetic_Finder.Importer.Domain.Model
 {
-    public class Cosmetic
+    public record Cosmetic
     {
         public int Id { get; set; }
         public string NavigateUrl { get; set; }
