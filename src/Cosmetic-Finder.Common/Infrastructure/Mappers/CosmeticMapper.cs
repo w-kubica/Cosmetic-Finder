@@ -1,9 +1,7 @@
-﻿using Cosmetic_Finder.Importer.Domain.Model;
-using Cosmetic_Finder.Importer.Infrastructure.Models;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Cosmetic_Finder.Common.Domain.Model;
+using Cosmetic_Finder.Common.Infrastructure.Models;
 
-namespace Cosmetic_Finder.Importer.Infrastructure.Mappers
+namespace Cosmetic_Finder.Common.Infrastructure.Mappers
 {
     public static class CosmeticMapper
     {

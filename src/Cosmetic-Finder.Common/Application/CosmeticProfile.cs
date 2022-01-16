@@ -1,10 +1,8 @@
-﻿using Cosmetic_Finder.Importer.Domain.Model;
-using Cosmetic_Finder.Importer.Infrastructure;
-using Cosmetic_Finder.Importer.Infrastructure.Response;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Cosmetic_Finder.Common.Domain.Model;
+using Cosmetic_Finder.Common.Infrastructure;
+using Cosmetic_Finder.Common.Infrastructure.Response;
 
-namespace Cosmetic_Finder.Importer.Application
+namespace Cosmetic_Finder.Common.Application
 {
     public static class CosmeticProfile
     {

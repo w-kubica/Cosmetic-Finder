@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Cosmetic_Finder.Importer.Infrastructure.Response
+﻿namespace Cosmetic_Finder.Common.Infrastructure.Response
 {
     public class ResponseProducts
     {

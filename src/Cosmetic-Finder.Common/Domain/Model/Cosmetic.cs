@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.Importer.Domain.Model
+﻿namespace Cosmetic_Finder.Common.Domain.Model
 {
     public record Cosmetic
     {

@@ -1,14 +1,11 @@
 ﻿using CommonServiceLocator;
-using Cosmetic_Finder.Importer.Domain.Model;
-using Cosmetic_Finder.Importer.Infrastructure.Mappers;
-using Cosmetic_Finder.Importer.Infrastructure.Models;
+using Cosmetic_Finder.Common.Domain.Model;
+using Cosmetic_Finder.Common.Infrastructure.Mappers;
+using Cosmetic_Finder.Common.Infrastructure.Models;
 using SolrNet;
 using SolrNet.Commands.Parameters;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cosmetic_Finder.Importer.Infrastructure.Repositories
+namespace Cosmetic_Finder.Common.Infrastructure.Repositories
 {
     public static class CosmeticRepository
     {
