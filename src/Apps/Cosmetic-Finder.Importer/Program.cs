@@ -1,15 +1,16 @@
-﻿using System;
-using Cosmetic_Finder.Importer.Application;
+﻿using Cosmetic_Finder.Importer.Application;
 using Cosmetic_Finder.Importer.Infrastructure.Models;
 using Cosmetic_Finder.Importer.Infrastructure.Repositories;
 using SolrNet;
+using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cosmetic_Finder.Importer
 {
-    class Program
+    public class Program
     {
         private static async Task Main()
         {
@@ -22,11 +23,11 @@ namespace Cosmetic_Finder.Importer
             await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
 
 
-            var result = await CosmeticRepository.GetCosmetics("scen", CancellationToken.None);
+            var result = await CosmeticRepository.GetCosmetics("Hydrogenated Ethylhexyl Olivate", false, false, CancellationToken.None);
 
             foreach (var item in result)
             {
-                Console.WriteLine($"Cena {Convert.ToString(item.Price)}");
+                Console.WriteLine($"Cena {Convert.ToString(item.Price, CultureInfo.InvariantCulture)}");
                 Console.WriteLine(item.Id);
                 Console.WriteLine(item.NavigateUrl);
                 Console.WriteLine(item.Brand);
@@ -35,10 +36,6 @@ namespace Cosmetic_Finder.Importer
                 Console.WriteLine($"Compose {item.Compose}");
                 Console.WriteLine("**************************");
             }
-
-            
         }
-
-
     }
 }
