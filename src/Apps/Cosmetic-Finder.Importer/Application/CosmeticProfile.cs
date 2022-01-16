@@ -3,6 +3,7 @@ using Cosmetic_Finder.Importer.Infrastructure.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cosmetic_Finder.Importer.Infrastructure;
 
 namespace Cosmetic_Finder.Importer.Application
 {
@@ -17,7 +18,7 @@ namespace Cosmetic_Finder.Importer.Application
                 Cosmetic cosmetic = new()
                 {
                     Id = product.Id,
-                    NavigateUrl = $"https://www.rossmann.pl{product.NavigateUrl}",
+                    NavigateUrl = $"{ApiConst.RossmannPortalUrl}{product.NavigateUrl}",
                     Brand = product.Brand,
                     Caption = product.Caption,
                     Category = product.Category,
