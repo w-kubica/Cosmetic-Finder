@@ -92,9 +92,14 @@ namespace Cosmetic_Finder.Common.Application
         {
             var categoryId = category.Key;
             var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
-            var products = await productsApi.Get(categoryId);
+            var products = (await productsApi.Get(categoryId)).Data.Products;
 
-            return products.Data.Products;
+            foreach (var product in products)
+            {
+                product.MainCategoryId = categoryId;
+            }
+
+            return products;
         }
     }
 }

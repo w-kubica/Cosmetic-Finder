@@ -11,7 +11,8 @@ namespace Cosmetic_Finder.Common.Infrastructure.Models
         public const string CosmeticCategory = "category";
         public const string CosmeticCompose = "compose";
         public const string CosmeticPrice = "price";
-        
+        public const string MainCategoryId = "mainCategoryId";
+
         public const string LowerCompose = "lowerCompose";
 
         [SolrUniqueKey(CosmeticId)]
@@ -31,9 +32,12 @@ namespace Cosmetic_Finder.Common.Infrastructure.Models
 
         [SolrField(CosmeticCompose)]
         public string Compose { get; set; }
-        
+
         [SolrField(CosmeticPrice)]
         public double Price { get; set; }
+
+        [SolrField(MainCategoryId)]
+        public int MainCategoyId { get; set; }
 
     }
 }
