@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="cosmetics" version="1.5">
+	<types>
+
+		<fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
+		<fieldType name="double" class="solr.DoublePointField" sortMissingLast="true" docValues="true"  />
+		<fieldType name="int" class="solr.IntPointField" docValues="true"/>
+		<fieldType name="long" class="solr.LongPointField" docValues="true"/>
+		<fieldType name="float" class="solr.FloatPointField" docValues="true"/>
+		<fieldType name="date" class="solr.DatePointField" docValues="true"/>
+		<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+		<fieldType name="guid" class="solr.UUIDField" />
+
+		<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+			<analyzer type="index">
+				<tokenizer class="solr.StandardTokenizerFactory"/>
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.ASCIIFoldingFilterFactory" />
+				<filter class="solr.TrimFilterFactory"/>
+				<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" />
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.StandardTokenizerFactory"/>
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.ASCIIFoldingFilterFactory" />
+				<filter class="solr.TrimFilterFactory"/>
+				<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" />
+			</analyzer>
+		</fieldType>
+
+	</types>
+
+	<fields>
+
+		<field name="_version_" type="long" indexed="true" stored="true"/>
+		<field name="_root_" type="string" indexed="true" stored="false"/>
+
+		<!-- indexed and stored-->
+		<field name="id"            	type="string"			indexed="true" 		stored="true"  	required="true"/>
+		<field name="compose"			type="string"			indexed="true" 		stored="true"   />
+
+		<!-- only stored -->
+
+		<field name="url"        		type="string"			indexed="false" 	stored="true"/>
+		<field name="brand"          	type="string"			indexed="false" 	stored="true"/>
+		<field name="caption"           type="string"			indexed="false" 	stored="true"/>
+		<field name="category"          type="string"			indexed="false" 	stored="true"/>
+		<field name="price"       		type="double"			indexed="true" 		stored="true"/>
+
+
+		<!-- only indexed -->
+		<field name="lowerCompose" type="text_general" 	indexed="true"		stored="true" omitNorms="true" />
+		<copyField source="compose" dest="lowerCompose"/>
+
+
+	</fields>
+	<uniqueKey>id</uniqueKey>
+
+</schema>

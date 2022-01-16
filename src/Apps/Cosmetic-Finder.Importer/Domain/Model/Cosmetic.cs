@@ -8,5 +8,6 @@
         public string Caption { get; set; }
         public string Category { get; set; }
         public string Compose { get; set; }
+        public double Price { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cosmetic_Finder.Importer.Application.UtilsHtml;
+using Cosmetic_Finder.Importer.Infrastructure;
 
 namespace Cosmetic_Finder.Importer.Application
 {
@@ -76,7 +77,7 @@ namespace Cosmetic_Finder.Importer.Application
 
         private static async Task<Compose> GettingComposeByProductId(Product product)
         {
-            var productsApi = RestService.For<IProductsAdditionalsApi>("https://www.rossmann.pl/products/api");
+            var productsApi = RestService.For<IProductsAdditionalsApi>($"{ApiConst.RossmannPortalUrl}/products/api");
             var productAdditionals = await productsApi.Get(product.Id);
 
             var productCompose = string.Join("", productAdditionals.Data
@@ -94,7 +95,7 @@ namespace Cosmetic_Finder.Importer.Application
         private static async Task<IEnumerable<Product>> GettingProductsByCategoryId(KeyValuePair<int, string> category)
         {
             var categoryId = category.Key;
-            var productsApi = RestService.For<ICategoriesApi>("https://www.rossmann.pl/products/api");
+            var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
             var products = await productsApi.Get(categoryId);
 
             return products.Data.Products;
