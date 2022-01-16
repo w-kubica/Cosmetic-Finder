@@ -1,16 +1,12 @@
-﻿using Cosmetic_Finder.Importer.Domain.Model;
-using Cosmetic_Finder.Importer.Infrastructure.Gateways;
-using Cosmetic_Finder.Importer.Infrastructure.Response;
+﻿using Cosmetic_Finder.Common.Application.UtilsHtml;
+using Cosmetic_Finder.Common.Domain.Model;
+using Cosmetic_Finder.Common.Infrastructure;
+using Cosmetic_Finder.Common.Infrastructure.Gateways;
+using Cosmetic_Finder.Common.Infrastructure.Response;
 using HtmlAgilityPack;
 using Refit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Cosmetic_Finder.Importer.Application.UtilsHtml;
-using Cosmetic_Finder.Importer.Infrastructure;
 
-namespace Cosmetic_Finder.Importer.Application
+namespace Cosmetic_Finder.Common.Application
 {
     public static class CosmeticProvider
     {

@@ -1,12 +1,12 @@
-﻿using Cosmetic_Finder.Importer.Application;
-using Cosmetic_Finder.Importer.Infrastructure.Models;
-using Cosmetic_Finder.Importer.Infrastructure.Repositories;
-using SolrNet;
+﻿using SolrNet;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cosmetic_Finder.Common.Application;
+using Cosmetic_Finder.Common.Infrastructure.Models;
+using Cosmetic_Finder.Common.Infrastructure.Repositories;
 
 namespace Cosmetic_Finder.Importer
 {

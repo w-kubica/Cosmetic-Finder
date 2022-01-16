@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.Importer.Infrastructure
+﻿namespace Cosmetic_Finder.Common.Infrastructure
 {
     public static class ApiConst
     {

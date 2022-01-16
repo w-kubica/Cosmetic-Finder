@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.Importer.Domain.Repositories
+﻿namespace Cosmetic_Finder.Common.Domain.Repositories
 {
     public interface ICosmeticRepository
     {

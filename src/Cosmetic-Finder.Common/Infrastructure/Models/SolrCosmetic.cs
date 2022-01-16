@@ -1,5 +1,6 @@
 ﻿using SolrNet.Attributes;
-namespace Cosmetic_Finder.Importer.Infrastructure.Models
+
+namespace Cosmetic_Finder.Common.Infrastructure.Models
 {
     public class SolrCosmetic
     {

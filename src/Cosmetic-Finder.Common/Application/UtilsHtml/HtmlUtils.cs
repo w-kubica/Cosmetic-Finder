@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
-namespace Cosmetic_Finder.Importer.Application.UtilsHtml
+namespace Cosmetic_Finder.Common.Application.UtilsHtml
 {
     public static class HtmlUtils
     {
