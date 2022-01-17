@@ -1,44 +1,22 @@
-﻿using Cosmetic_Finder.Common.Domain.Model;
+﻿using Cosmetic_Finder.Common.Infrastructure.Models;
+using SolrNet;
 
 namespace Cosmetic_Finder.TUI
 {
     public class Program
     {
-        private static async Task Main()
+        public static async Task Main()
         {
-            var cosmetics = await Cosmetics.FilterAndSort();
+            Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
 
-            CosmeticsWithNumber(cosmetics);
+            await StartProgram.StartSearch();
 
-            Console.WriteLine("Które produkty dodać do ulubionych? Wymień po przecinku");
-            var favCosmetics = Convert.ToInt16(Console.ReadLine().Split(","));
-
-            Console.WriteLine("Czy wyświetlić listę ulubionych?");
-            Console.WriteLine("Tak"); // todo funkcja do 
-            Console.WriteLine("Nie");
-
-            Console.WriteLine("Czy chcesz pobrać listę?");
-            Console.WriteLine("Tak"); //todo funkcja do zapisywania wyników do pliku 
-            Console.WriteLine("Nie");
-
-        }
-
-        private static void CosmeticsWithNumber(IEnumerable<Cosmetic> cosmetics)
-        {
-            Dictionary<int, Cosmetic> favCosmetics = new Dictionary<int, Cosmetic>();
-            var counter = 0;
-            foreach (var cosmetic in cosmetics)
+            bool searchAgain = StartProgram.SearchAgain();
+            while (searchAgain)
             {
-                counter++;
-                favCosmetics.Add(counter, cosmetic);
+                Console.Clear();
+                await StartProgram.StartSearch();
             }
         }
-
-
-
-
-
-
-
     }
 }

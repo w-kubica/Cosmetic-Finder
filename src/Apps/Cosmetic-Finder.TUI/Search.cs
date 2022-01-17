@@ -7,21 +7,41 @@
             Console.WriteLine("Wybierz jak chcesz szukać, podając cyfrę 1 lub 2:");
             Console.WriteLine("1. Zawiera składnik");
             Console.WriteLine("2. Nie zawiera składnika");
-            var searchOption = Convert.ToInt16(Console.ReadLine());
-            return searchOption;
+
+            short response;
+            try
+            {
+                response = Convert.ToInt16(Console.ReadLine());
+            }
+            catch (FormatException )
+            {
+                Console.WriteLine("Podaj poprawną wartość");
+                response = Convert.ToInt16(Console.ReadLine());
+            }
+            return response;
         }
 
         public static string? GettingComponent()
         {
             Console.WriteLine("Podaj składnik: ");
-            var component = Console.ReadLine();
+
+            string? component;
+            try
+            {
+                component = Console.ReadLine();
+            }
+            catch (FormatException )
+            {
+                Console.WriteLine("Podaj poprawną wartość");
+                component = Console.ReadLine();
+            }
             return component;
         }
 
-        public static bool SearchOptions(short searchOption)
+        public static bool SearchOptions(short response)
         {
             bool shouldContainComponent = false;
-            switch (searchOption)
+            switch (response)
             {
                 case 1:
                     shouldContainComponent = true;

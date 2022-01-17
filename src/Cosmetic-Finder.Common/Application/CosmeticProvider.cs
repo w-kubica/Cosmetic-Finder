@@ -1,4 +1,5 @@
-﻿using Cosmetic_Finder.Common.Application.UtilsHtml;
+﻿using System.Net;
+using Cosmetic_Finder.Common.Application.UtilsHtml;
 using Cosmetic_Finder.Common.Domain.Model;
 using Cosmetic_Finder.Common.Infrastructure;
 using Cosmetic_Finder.Common.Infrastructure.Gateways;
@@ -31,11 +32,11 @@ namespace Cosmetic_Finder.Common.Application
                 products.AddRange(product);
             }
 
-            //wypisanie danych
-            foreach (var product in products)
-            {
-                Console.WriteLine(product.Id);
-            }
+            ////wypisanie danych
+            //foreach (var product in products)
+            //{
+            //    Console.WriteLine(product.Id);
+            //}
 
             return products;
         }
@@ -61,28 +62,34 @@ namespace Cosmetic_Finder.Common.Application
                 var compose = await composeTask;
                 composes.Add(compose);
             }
-
-            foreach (var compose in composes)
-            {
-                Console.WriteLine($"{compose.Id} {compose.ProductCompose}");
-                Console.WriteLine();
-            }
-
             return composes;
         }
 
         private static async Task<Compose> GettingComposeByProductId(Product product)
         {
             var productsApi = RestService.For<IProductsAdditionalsApi>($"{ApiConst.RossmannPortalUrl}/products/api");
-            var productAdditionals = await productsApi.Get(product.Id);
+
+            ResponseProductsAdditionals productAdditionals = null;
+            try
+            {
+                productAdditionals = await productsApi.Get(product.Id);
+            }
+            catch (ApiException ex)
+            {
+                var statusCode = ex.StatusCode;
+                if (statusCode == HttpStatusCode.NoContent)
+                {
+                    return new Compose(product.Id, string.Empty);
+                }
+            }
 
             var productCompose = string.Join("", productAdditionals.Data
-                .Where(h => h.Type == "CharacterComponents")
-                .Select(x => x.Html));
+                    .Where(h => h.Type == "CharacterComponents")
+                    .Select(x => x.Html));
 
             var html = new HtmlDocument();
             html.LoadHtml(productCompose);
-                HtmlUtils.RemoveStyles(html);
+            HtmlUtils.RemoveStyles(html);
             var noHtml = HtmlUtils.ConvertHtmlToString(html);
 
             return new Compose(product.Id, noHtml);

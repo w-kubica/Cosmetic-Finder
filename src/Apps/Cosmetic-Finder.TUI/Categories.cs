@@ -12,7 +12,17 @@
                 Console.WriteLine($"{counter}: {category.Value}");
             }
 
-            var categoryNum = Convert.ToInt16(Console.ReadLine());
+            short categoryNum;
+            try
+            {
+                categoryNum = Convert.ToInt16(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Podaj poprawną wartość");
+                categoryNum = Convert.ToInt16(Console.ReadLine());
+            }
+            
             return categoryNum;
         }
         public static int CategoryOptions(short categoryNum)
