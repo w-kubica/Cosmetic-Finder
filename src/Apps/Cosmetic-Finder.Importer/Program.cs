@@ -1,12 +1,9 @@
-﻿using SolrNet;
-using System;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cosmetic_Finder.Common.Application;
+﻿using Cosmetic_Finder.Common.Application;
 using Cosmetic_Finder.Common.Infrastructure.Models;
 using Cosmetic_Finder.Common.Infrastructure.Repositories;
+using SolrNet;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cosmetic_Finder.Importer
 {
@@ -23,7 +20,7 @@ namespace Cosmetic_Finder.Importer
             await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
 
 
-            
+
         }
     }
 }
