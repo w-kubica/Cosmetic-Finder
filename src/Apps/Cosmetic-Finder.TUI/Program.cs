@@ -1,2 +1,24 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System.Diagnostics;
+using Cosmetic_Finder.Common.Infrastructure.Models;
+using SolrNet;
+
+namespace Cosmetic_Finder.TUI
+{
+    public class Program
+    {
+        public static async Task Main()
+        {
+            Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
+
+            await StartProgram.StartSearch();
+
+            bool searchAgain = false;
+            searchAgain = StartProgram.SearchAgain();
+            while (searchAgain)
+            {
+                await StartProgram.StartSearch();
+            }
+            Environment.Exit(0);
+        }
+    }
+}

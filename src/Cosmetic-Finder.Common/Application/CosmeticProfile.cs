@@ -20,12 +20,15 @@ namespace Cosmetic_Finder.Common.Application
                     Caption = product.Caption,
                     Category = product.Category,
                     Price = product.Price,
-                    Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose
+                    Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose,
                     // todo: add remove find compose
+                    MainCategoryId = product.MainCategoryId
                 };
                 cosmetics.Add(cosmetic);
             }
             return cosmetics;
         }
+
+
     }
 }

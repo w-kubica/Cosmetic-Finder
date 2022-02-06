@@ -1,4 +1,5 @@
-﻿namespace Cosmetic_Finder.Common.Infrastructure.Response
+﻿#nullable enable
+namespace Cosmetic_Finder.Common.Infrastructure.Response
 {
     public class ResponseProductsAdditionals
     {

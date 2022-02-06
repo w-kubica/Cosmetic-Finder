@@ -9,7 +9,7 @@ namespace Cosmetic_Finder.Common.Infrastructure.Repositories
 {
     public static class CosmeticRepository
     {
-        private const string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose}";
+        private static readonly string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose},{SolrCosmetic.MainCategoryId}";
 
         public static async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics)
         {
@@ -20,21 +20,25 @@ namespace Cosmetic_Finder.Common.Infrastructure.Repositories
             return result.Status == 0;
         }
 
-        public static async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, bool shouldContainCompose, bool sortByPriceAsc, CancellationToken cancellationToken)
+        public static async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
         {
             var solr = ServiceLocator.Current.GetInstance<ISolrOperations<SolrCosmetic>>();
             var options = new QueryOptions
             {
                 Fields = new List<string> { BrandDtoFields },
-                OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) }
             };
-            
+            if (sort)
+            {
+                options.OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) };
+            }
+
             if (!string.IsNullOrEmpty(search))
             {
                 if (shouldContainCompose)
                 {
                     options.FilterQueries = new List<ISolrQuery>
                         {
+                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString()),
                             new SolrQueryByField(SolrCosmetic.LowerCompose, search),
                         };
                 }
@@ -42,6 +46,7 @@ namespace Cosmetic_Finder.Common.Infrastructure.Repositories
                 {
                     options.FilterQueries = new List<ISolrQuery>
                         {
+                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString()),
                             !new SolrQueryByField(SolrCosmetic.LowerCompose, search),
                         };
                 }

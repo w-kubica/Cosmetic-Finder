@@ -15,7 +15,8 @@ namespace Cosmetic_Finder.Common.Infrastructure.Mappers
                 Caption = cosmetic.Caption,
                 Category = cosmetic.Category,
                 Compose = cosmetic.Compose,
-                Price = cosmetic.Price
+                Price = cosmetic.Price,
+                MainCategoyId = cosmetic.MainCategoryId
             };
         }
 
@@ -34,7 +35,8 @@ namespace Cosmetic_Finder.Common.Infrastructure.Mappers
                 Caption = solrCosmetic.Caption,
                 Category = solrCosmetic.Category,
                 Compose = solrCosmetic.Compose,
-                Price = solrCosmetic.Price
+                Price = solrCosmetic.Price,
+                MainCategoryId = solrCosmetic.MainCategoyId
             };
         }
 

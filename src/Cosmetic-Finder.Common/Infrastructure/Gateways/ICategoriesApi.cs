@@ -5,7 +5,7 @@ namespace Cosmetic_Finder.Common.Infrastructure.Gateways
 {
     public interface ICategoriesApi
     {
-        [Get("/Products?CategoryId={CategoryId}&PageSize=3")]
+        [Get("/Products?CategoryId={CategoryId}&PageSize=6500")]
         Task<ResponseProducts> Get(int categoryId);
     }
 }
