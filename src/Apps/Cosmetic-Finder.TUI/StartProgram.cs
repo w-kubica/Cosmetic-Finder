@@ -39,7 +39,7 @@
         {
             var cosmetics = await Cosmetics.FilterAndSort();
             var cosmeticsNum = FavouriteCosmetics.CosmeticsWithNumber(cosmetics);
-            FavouriteCosmeticsOutput.CreateFavCosmetics(cosmeticsNum);
+            FavouriteCosmeticsOutput.CreateFavCosmeticsAsync(cosmeticsNum);
         }
     }
 }

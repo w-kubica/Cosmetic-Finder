@@ -1,4 +1,5 @@
-﻿using Cosmetic_Finder.Common.Infrastructure.Models;
+﻿using System.Diagnostics;
+using Cosmetic_Finder.Common.Infrastructure.Models;
 using SolrNet;
 
 namespace Cosmetic_Finder.TUI
@@ -11,12 +12,13 @@ namespace Cosmetic_Finder.TUI
 
             await StartProgram.StartSearch();
 
-            bool searchAgain = StartProgram.SearchAgain();
+            bool searchAgain = false;
+            searchAgain = StartProgram.SearchAgain();
             while (searchAgain)
             {
-                Console.Clear();
                 await StartProgram.StartSearch();
             }
+            Environment.Exit(0);
         }
     }
 }

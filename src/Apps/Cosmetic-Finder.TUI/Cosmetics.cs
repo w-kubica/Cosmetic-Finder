@@ -13,18 +13,15 @@ namespace Cosmetic_Finder.TUI
         public static async Task<IEnumerable<Cosmetic>> FilterAndSort()
         {
             MainCategoryId = GettingCategoryName();
-            Console.WriteLine(MainCategoryId);
-
+            
             var searchOption = TUI.Search.GettiSearchOption();
             ShouldContainCompose = TUI.Search.SearchOptions(searchOption);
-            Console.WriteLine(ShouldContainCompose);
-
+           
             Search = TUI.Search.GettingComponent();
-            Console.WriteLine(Search);
-
+         
             var sortInput = Sort.GettingIsSort();
             var isSort = Sort.IsSortOptions(sortInput);
-            Console.WriteLine(isSort);
+            
 
             IEnumerable<Cosmetic> result;
             if (isSort)

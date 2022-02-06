@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using Cosmetic_Finder.Common.Domain.Model;
 
 namespace Cosmetic_Finder.TUI
@@ -16,11 +18,10 @@ namespace Cosmetic_Finder.TUI
                     favCosmetics.Add(favcosmetic, cosmetics[favcosmetic]);
                 }
             }
-
             return favCosmetics;
         }
 
-        public static void CreateFavCosmetics(Dictionary<int, Cosmetic> cosmeticsNum)
+        public static async Task CreateFavCosmeticsAsync(Dictionary<int, Cosmetic> cosmeticsNum)
         {
             var isAddResponse = FavouriteCosmetics.IsAddToFavCosmetics();
             var isAdd = FavouriteCosmetics.AddToFavOptions(isAddResponse);
@@ -37,7 +38,42 @@ namespace Cosmetic_Finder.TUI
                     {
                         SaveFavCosmeticsToTxt(favCosmetics);
                     }
+                    else
+                    {
+                        bool searchAgain = StartProgram.SearchAgain();
+                        while (searchAgain)
+                        {
+                            await StartProgram.StartSearch();
+                        }
+                    }
                 }
+                else
+                {
+                    var isDownload = DisplayFavCosmetics(favCosmetics);
+
+                    if (isDownload)
+                    {
+                        SaveFavCosmeticsToTxt(favCosmetics);
+                    }
+                    else
+                    {
+                        bool searchAgain = StartProgram.SearchAgain();
+                        while (searchAgain)
+                        {
+                            await StartProgram.StartSearch();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                bool searchAgain = false;
+                searchAgain = StartProgram.SearchAgain();
+                while (searchAgain)
+                {
+                    await StartProgram.StartSearch();
+                }
+                Environment.Exit(0);
             }
         }
 
@@ -80,7 +116,7 @@ namespace Cosmetic_Finder.TUI
                 contain = "nie-zawiera";
             }
 
-            var fileName = $"{categoryName}-{contain}-{search}";
+            var fileName = $"{categoryName}-{contain}-{search}.txt";
 
             using (StreamWriter sw = File.CreateText(fileName))
             {

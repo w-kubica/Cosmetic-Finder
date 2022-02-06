@@ -8,7 +8,7 @@ namespace Cosmetic_Finder.Common.Application.UtilsHtml
         public static string ConvertHtmlToString(HtmlDocument html)
         {
             var nodes = html.DocumentNode.InnerText;
-            var noHtml = Regex.Replace(nodes, @"<[^>]+>|&nbsp|&lt|&reg;", "").Trim();
+            var noHtml = Regex.Replace(nodes, @"<[^>]+>|'\n'|&nbsp|&lt|&middot;|&reg;", "").Trim();
 
             return noHtml;
         }

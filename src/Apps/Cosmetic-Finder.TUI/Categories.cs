@@ -65,8 +65,6 @@
                     Console.WriteLine("Podano złą wartość.");
                     break;
             }
-
-            Console.WriteLine(mainCategoryId);
             return mainCategoryId;
         }
     }

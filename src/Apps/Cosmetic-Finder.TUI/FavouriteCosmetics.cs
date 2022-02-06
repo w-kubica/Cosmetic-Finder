@@ -76,8 +76,8 @@ namespace Cosmetic_Finder.TUI
         public static short DisplayFavCosmetics()
         {
             Console.WriteLine("Czy wyświetlić listę ulubionych?");
-            Console.WriteLine("1. Tak");
-            Console.WriteLine("2. Nie");
+            Console.WriteLine("1. TAK");
+            Console.WriteLine("2. NIE");
 
             short response;
             try
@@ -114,8 +114,8 @@ namespace Cosmetic_Finder.TUI
         public static short DownloadFavCosmetics()
         {
             Console.WriteLine("Czy chcesz pobrać listę?");
-            Console.WriteLine("1. Tak");
-            Console.WriteLine("2. Nie");
+            Console.WriteLine("1. TAK");
+            Console.WriteLine("2. NIE");
 
             short response;
             try
