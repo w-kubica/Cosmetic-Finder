@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Cosmetic-Finder.Common\Cosmetic-Finder.Common.csproj" />
+    <ProjectReference Include="..\..\Cosmetic-Finder.Application\Cosmetic-Finder.Application.csproj" />
+    <ProjectReference Include="..\..\Cosmetic-Finder.Infrastructure\Cosmetic-Finder.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
