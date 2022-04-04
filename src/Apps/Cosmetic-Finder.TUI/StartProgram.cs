@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Cosmetic_Finder.TUI
 {
     public static class StartProgram
@@ -11,12 +13,12 @@ namespace Cosmetic_Finder.TUI
             short response;
             try
             {
-                response = Convert.ToInt16(Console.ReadLine());
+                response = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
                 Console.WriteLine("Podaj poprawną wartość");
-                response = Convert.ToInt16(Console.ReadLine());
+                response = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
 
             var search = false;

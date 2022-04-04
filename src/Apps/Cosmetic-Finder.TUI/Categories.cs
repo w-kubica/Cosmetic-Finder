@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Cosmetic_Finder.TUI
 {
     public static class Categories
@@ -15,14 +17,14 @@ namespace Cosmetic_Finder.TUI
             short categoryNum;
             try
             {
-                categoryNum = Convert.ToInt16(Console.ReadLine());
+                categoryNum = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
                 Console.WriteLine("Podaj poprawną wartość");
-                categoryNum = Convert.ToInt16(Console.ReadLine());
+                categoryNum = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
-            
+
             return categoryNum;
         }
         public static int CategoryOptions(short categoryNum)

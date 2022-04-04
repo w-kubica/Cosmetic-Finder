@@ -1,5 +1,6 @@
 using Cosmetic_Finder.Common.Infrastructure.Models;
 using SolrNet;
+// ReSharper disable LoopVariableIsNeverChangedInsideLoop
 
 namespace Cosmetic_Finder.TUI
 {

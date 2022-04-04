@@ -1,4 +1,5 @@
-﻿using CommonServiceLocator;
+using System.Globalization;
+using CommonServiceLocator;
 using Cosmetic_Finder.Common.Domain.Model;
 using Cosmetic_Finder.Common.Infrastructure.Mappers;
 using Cosmetic_Finder.Common.Infrastructure.Models;
@@ -38,7 +39,7 @@ namespace Cosmetic_Finder.Common.Infrastructure.Repositories
                 {
                     options.FilterQueries = new List<ISolrQuery>
                         {
-                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString()),
+                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
                             new SolrQueryByField(SolrCosmetic.LowerCompose, search),
                         };
                 }
@@ -46,7 +47,7 @@ namespace Cosmetic_Finder.Common.Infrastructure.Repositories
                 {
                     options.FilterQueries = new List<ISolrQuery>
                         {
-                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString()),
+                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
                             !new SolrQueryByField(SolrCosmetic.LowerCompose, search),
                         };
                 }

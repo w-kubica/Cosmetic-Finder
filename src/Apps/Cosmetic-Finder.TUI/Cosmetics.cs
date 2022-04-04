@@ -1,27 +1,27 @@
-﻿using Cosmetic_Finder.Common.Domain.Model;
-using Cosmetic_Finder.Common.Infrastructure.Repositories;
 using System.Globalization;
+using Cosmetic_Finder.Common.Domain.Model;
+using Cosmetic_Finder.Common.Infrastructure.Repositories;
 
 namespace Cosmetic_Finder.TUI
 {
     public static class Cosmetics
     {
-        public static int MainCategoryId;
-        public static string? Search;
-        public static bool ShouldContainCompose;
+        public static int MainCategoryId { get; set; }
+        public static string? Search { get; set; }
+        public static bool ShouldContainCompose { get; set; }
 
         public static async Task<IEnumerable<Cosmetic>> FilterAndSort()
         {
             MainCategoryId = GettingCategoryName();
-            
+
             var searchOption = TUI.Search.GettiSearchOption();
             ShouldContainCompose = TUI.Search.SearchOptions(searchOption);
-           
+
             Search = TUI.Search.GettingComponent();
-         
+
             var sortInput = Sort.GettingIsSort();
             var isSort = Sort.IsSortOptions(sortInput);
-            
+
 
             IEnumerable<Cosmetic> result;
             if (isSort)

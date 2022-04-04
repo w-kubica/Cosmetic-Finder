@@ -26,12 +26,12 @@ namespace Cosmetic_Finder.TUI
             short addToFavCosmetics;
             try
             {
-                addToFavCosmetics = Convert.ToInt16(Console.ReadLine());
+                addToFavCosmetics = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
                 Console.WriteLine("Podaj poprawną wartość");
-                addToFavCosmetics = Convert.ToInt16(Console.ReadLine());
+                addToFavCosmetics = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             return addToFavCosmetics;
         }
@@ -83,12 +83,12 @@ namespace Cosmetic_Finder.TUI
             short response;
             try
             {
-                response = Convert.ToInt16(Console.ReadLine());
+                response = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
                 Console.WriteLine("Podaj poprawną wartość");
-                response = Convert.ToInt16(Console.ReadLine());
+                response = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             return response;
         }
@@ -121,12 +121,12 @@ namespace Cosmetic_Finder.TUI
             short response;
             try
             {
-                response = Convert.ToInt16(Console.ReadLine());
+                response = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
                 Console.WriteLine("Podaj poprawną wartość");
-                response = Convert.ToInt16(Console.ReadLine());
+                response = Convert.ToInt16(Console.ReadLine(), CultureInfo.InvariantCulture);
             }
             return response;
         }

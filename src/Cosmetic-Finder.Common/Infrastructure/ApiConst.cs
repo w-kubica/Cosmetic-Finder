@@ -1,7 +1,7 @@
-﻿namespace Cosmetic_Finder.Common.Infrastructure
+namespace Cosmetic_Finder.Common.Infrastructure
 {
     public static class ApiConst
     {
-        public static string RossmannPortalUrl = "https://www.rossmann.pl";
+        public const string RossmannPortalUrl = "https://www.rossmann.pl";
     }
 }

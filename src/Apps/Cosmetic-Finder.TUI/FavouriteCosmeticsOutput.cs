@@ -1,5 +1,6 @@
 using System.Globalization;
 using Cosmetic_Finder.Common.Domain.Model;
+// ReSharper disable LoopVariableIsNeverChangedInsideLoop
 
 namespace Cosmetic_Finder.TUI
 {
@@ -65,8 +66,7 @@ namespace Cosmetic_Finder.TUI
             }
             else
             {
-                var searchAgain = false;
-                searchAgain = StartProgram.SearchAgain();
+                var searchAgain = StartProgram.SearchAgain();
                 while (searchAgain)
                 {
                     await StartProgram.StartSearch();
@@ -78,7 +78,7 @@ namespace Cosmetic_Finder.TUI
         public static Dictionary<int, Cosmetic> AddingFavCosmetics(Dictionary<int, Cosmetic> cosmeticsNum, out bool isDisplay)
         {
             var favcosmetics = FavouriteCosmetics.AddingToFav();
-            var favCosmetics = FavouriteCosmeticsOutput.CreateFavCosmetics(favcosmetics, cosmeticsNum);
+            var favCosmetics = CreateFavCosmetics(favcosmetics, cosmeticsNum);
 
             var display = FavouriteCosmetics.DisplayFavCosmetics();
             isDisplay = FavouriteCosmetics.DisplayFavCosmeticsOptions(display);
