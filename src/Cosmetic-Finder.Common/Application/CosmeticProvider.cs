@@ -1,9 +1,9 @@
-﻿using System.Net;
+using System.Net;
 using Cosmetic_Finder.Common.Application.UtilsHtml;
 using Cosmetic_Finder.Common.Domain.Model;
 using Cosmetic_Finder.Common.Infrastructure;
 using Cosmetic_Finder.Common.Infrastructure.Gateways;
-using Cosmetic_Finder.Common.Infrastructure.Response;
+using Cosmetic_Finder.Common.Infrastructure.Gateways.Response;
 using HtmlAgilityPack;
 using Refit;
 
@@ -83,9 +83,9 @@ namespace Cosmetic_Finder.Common.Application
                 }
             }
 
-            var productCompose = string.Join("", productAdditionals.Data
-                    .Where(h => h.Type == "CharacterComponents")
-                    .Select(x => x.Html));
+            var productCompose = string.Join("", productAdditionals?.Data
+                .Where(h => h.Type == "CharacterComponents")
+                .Select(x => x.Html) ?? Array.Empty<string>());
 
             var html = new HtmlDocument();
             html.LoadHtml(productCompose);

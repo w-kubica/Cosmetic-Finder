@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.TUI
+namespace Cosmetic_Finder.TUI
 {
     public static class Categories
     {
@@ -27,7 +27,7 @@
         }
         public static int CategoryOptions(short categoryNum)
         {
-            int mainCategoryId = 0;
+            var mainCategoryId = 0;
 
             switch (categoryNum)
             {

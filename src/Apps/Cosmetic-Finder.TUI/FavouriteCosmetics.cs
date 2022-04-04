@@ -1,4 +1,5 @@
-﻿using Cosmetic_Finder.Common.Domain.Model;
+using System.Globalization;
+using Cosmetic_Finder.Common.Domain.Model;
 
 namespace Cosmetic_Finder.TUI
 {
@@ -6,7 +7,7 @@ namespace Cosmetic_Finder.TUI
     {
         public static Dictionary<int, Cosmetic> CosmeticsWithNumber(IEnumerable<Cosmetic> cosmetics)
         {
-            Dictionary<int, Cosmetic> favCosmetics = new Dictionary<int, Cosmetic>();
+            var favCosmetics = new Dictionary<int, Cosmetic>();
             var counter = 0;
             foreach (var cosmetic in cosmetics)
             {
@@ -37,7 +38,7 @@ namespace Cosmetic_Finder.TUI
 
         public static bool AddToFavOptions(short response)
         {
-            bool isAdd = false;
+            var isAdd = false;
 
             switch (response)
             {
@@ -69,7 +70,7 @@ namespace Cosmetic_Finder.TUI
                 favCosmetics = Console.ReadLine()?.Split(",");
             }
 
-            return favCosmetics.Select(favCosmetic => Convert.ToInt16(favCosmetic)).Select(cosmetic => (int) cosmetic).ToList();
+            return (favCosmetics ?? Array.Empty<string>()).Select(favCosmetic => Convert.ToInt16(favCosmetic, CultureInfo.InvariantCulture)).Select(cosmetic => (int)cosmetic).ToList();
 
         }
 
@@ -94,7 +95,7 @@ namespace Cosmetic_Finder.TUI
 
         public static bool DisplayFavCosmeticsOptions(short response)
         {
-            bool isDisplay = false;
+            var isDisplay = false;
 
             switch (response)
             {
@@ -132,7 +133,7 @@ namespace Cosmetic_Finder.TUI
 
         public static bool DownloadFavCosmeticsOptions(short response)
         {
-            bool isDownload = false;
+            var isDownload = false;
 
             switch (response)
             {

@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.TUI
+namespace Cosmetic_Finder.TUI
 {
     public static class Search
     {
@@ -40,7 +40,7 @@
 
         public static bool SearchOptions(short response)
         {
-            bool shouldContainComponent = false;
+            var shouldContainComponent = false;
             switch (response)
             {
                 case 1:

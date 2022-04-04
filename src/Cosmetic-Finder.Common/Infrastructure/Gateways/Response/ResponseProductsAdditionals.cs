@@ -1,5 +1,4 @@
-﻿#nullable enable
-namespace Cosmetic_Finder.Common.Infrastructure.Response
+namespace Cosmetic_Finder.Common.Infrastructure.Gateways.Response
 {
     public class ResponseProductsAdditionals
     {

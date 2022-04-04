@@ -1,6 +1,6 @@
-﻿using Cosmetic_Finder.Common.Domain.Model;
+using Cosmetic_Finder.Common.Domain.Model;
 using Cosmetic_Finder.Common.Infrastructure;
-using Cosmetic_Finder.Common.Infrastructure.Response;
+using Cosmetic_Finder.Common.Infrastructure.Gateways.Response;
 
 namespace Cosmetic_Finder.Common.Application
 {

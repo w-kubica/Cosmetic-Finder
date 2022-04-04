@@ -1,4 +1,4 @@
-﻿using Cosmetic_Finder.Common.Infrastructure.Response;
+using Cosmetic_Finder.Common.Infrastructure.Gateways.Response;
 using Refit;
 
 namespace Cosmetic_Finder.Common.Infrastructure.Gateways

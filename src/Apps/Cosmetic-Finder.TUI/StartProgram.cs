@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.TUI
+namespace Cosmetic_Finder.TUI
 {
     public static class StartProgram
     {
@@ -18,8 +18,8 @@
                 Console.WriteLine("Podaj poprawną wartość");
                 response = Convert.ToInt16(Console.ReadLine());
             }
-           
-            bool search = false;
+
+            var search = false;
             switch (response)
             {
                 case 1:
@@ -39,7 +39,7 @@
         {
             var cosmetics = await Cosmetics.FilterAndSort();
             var cosmeticsNum = FavouriteCosmetics.CosmeticsWithNumber(cosmetics);
-            FavouriteCosmeticsOutput.CreateFavCosmeticsAsync(cosmeticsNum);
+            await FavouriteCosmeticsOutput.CreateFavCosmeticsAsync(cosmeticsNum);
         }
     }
 }

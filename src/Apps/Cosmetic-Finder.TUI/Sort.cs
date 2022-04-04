@@ -1,4 +1,4 @@
-﻿namespace Cosmetic_Finder.TUI
+namespace Cosmetic_Finder.TUI
 {
     public static class Sort
     {
@@ -22,7 +22,7 @@
         }
         public static bool IsSortOptions(short response)
         {
-            bool isSort = false;
+            var isSort = false;
 
             switch (response)
             {
@@ -58,7 +58,7 @@
 
         public static bool SortByPriceAsc(short response)
         {
-            bool sortByPriceAsc = false;
+            var sortByPriceAsc = false;
 
             switch (response)
             {

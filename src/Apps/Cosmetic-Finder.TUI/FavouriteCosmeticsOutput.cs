@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
+using System.Globalization;
 using Cosmetic_Finder.Common.Domain.Model;
 
 namespace Cosmetic_Finder.TUI
@@ -10,7 +8,7 @@ namespace Cosmetic_Finder.TUI
 
         public static Dictionary<int, Cosmetic> CreateFavCosmetics(List<int> favcosmetics, Dictionary<int, Cosmetic> cosmetics)
         {
-            Dictionary<int, Cosmetic> favCosmetics = new Dictionary<int, Cosmetic>();
+            var favCosmetics = new Dictionary<int, Cosmetic>();
             foreach (var favcosmetic in favcosmetics)
             {
                 if (cosmetics.ContainsKey(favcosmetic))
@@ -40,7 +38,7 @@ namespace Cosmetic_Finder.TUI
                     }
                     else
                     {
-                        bool searchAgain = StartProgram.SearchAgain();
+                        var searchAgain = StartProgram.SearchAgain();
                         while (searchAgain)
                         {
                             await StartProgram.StartSearch();
@@ -57,7 +55,7 @@ namespace Cosmetic_Finder.TUI
                     }
                     else
                     {
-                        bool searchAgain = StartProgram.SearchAgain();
+                        var searchAgain = StartProgram.SearchAgain();
                         while (searchAgain)
                         {
                             await StartProgram.StartSearch();
@@ -67,7 +65,7 @@ namespace Cosmetic_Finder.TUI
             }
             else
             {
-                bool searchAgain = false;
+                var searchAgain = false;
                 searchAgain = StartProgram.SearchAgain();
                 while (searchAgain)
                 {
@@ -118,7 +116,7 @@ namespace Cosmetic_Finder.TUI
 
             var fileName = $"{categoryName}-{contain}-{search}.txt";
 
-            using (StreamWriter sw = File.CreateText(fileName))
+            using (var sw = File.CreateText(fileName))
             {
                 foreach (var favCosmetic in favCosmetics)
                 {
