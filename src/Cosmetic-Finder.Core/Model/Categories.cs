@@ -2,7 +2,7 @@ namespace Cosmetic_Finder.Core.Model
 {
     public static class Categories
     {
-        public static readonly Dictionary<int, string> CosmeticCategories = new ()
+        public static readonly Dictionary<int, string> CosmeticCategories = new()
         {
             { 8686, "Twarz" },
             { 8528, "Makijaż" },
