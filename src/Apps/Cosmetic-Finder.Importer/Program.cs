@@ -1,10 +1,9 @@
-using SolrNet;
 using System.Linq;
 using System.Threading.Tasks;
 using Cosmetic_Finder.Infrastructure.DTO;
 using Cosmetic_Finder.Infrastructure.Mappers;
 using Cosmetic_Finder.Infrastructure.Providers;
-using Cosmetic_Finder.Infrastructure.Repositories;
+using SolrNet;
 
 namespace Cosmetic_Finder.Importer;
 
@@ -18,6 +17,6 @@ public class Program
 
         Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
 
-        await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
+        //await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
     }
 }
