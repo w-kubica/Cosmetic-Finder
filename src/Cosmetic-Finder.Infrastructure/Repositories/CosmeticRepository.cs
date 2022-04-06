@@ -19,7 +19,7 @@ public class CosmeticRepository : ICosmeticRepository
         _solr = solr;
     }
 
-    public async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics, CancellationToken cancellationToken)
+    public async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics)
     {
         var solrCosmetic = cosmetics.ToInfrastructure();
         var result = await _solr.AddRangeAsync(solrCosmetic);

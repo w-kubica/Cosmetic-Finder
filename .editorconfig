@@ -123,7 +123,7 @@ dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
 # Undocumented
 dotnet_style_operator_placement_when_wrapping = end_of_line:warning
 csharp_style_prefer_null_check_over_type_check = true:warning
-dotnet_style_namespace_match_folder = true:suggestion
+dotnet_style_namespace_match_folder = true:warning
 dotnet_diagnostic.IDE0130.severity = suggestion
 
 # C# Style Rules
@@ -161,7 +161,7 @@ csharp_style_throw_expression = true:warning
 csharp_style_conditional_delegate_call = true:warning
 # Code block preferences
 csharp_prefer_braces = true:warning
-csharp_prefer_simple_using_statement = true:suggestion
+csharp_prefer_simple_using_statement = true:warning
 dotnet_diagnostic.IDE0063.severity = suggestion
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:warning
@@ -432,5 +432,8 @@ dotnet_diagnostic.CA1711.severity = silent
 # CA2201: Do not raise reserved exception types
 dotnet_diagnostic.CA2201.severity = silent
 
-# CA1707: Identifiers should not contain underscores
-dotnet_diagnostic.CA1707.severity = none
+# CA1848: Use the LoggerMessage delegates
+dotnet_diagnostic.CA1848.severity = none
+
+# IDE0160: Convert to block scoped namespace
+csharp_style_namespace_declarations = file_scoped

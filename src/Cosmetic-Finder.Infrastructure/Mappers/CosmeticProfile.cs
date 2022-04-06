@@ -3,33 +3,33 @@ using Cosmetic_Finder.Infrastructure.DTO;
 using Cosmetic_Finder.Infrastructure.Gateways;
 using Cosmetic_Finder.Infrastructure.Gateways.Response;
 
-namespace Cosmetic_Finder.Infrastructure.Mappers;
-
-//todo: rename
-public static class CosmeticProfile
+namespace Cosmetic_Finder.Infrastructure.Mappers
 {
-    public static IEnumerable<Cosmetic> ToDomainCosmetic(this IEnumerable<ProductResponse> products, List<ComposeDto> composes)
+    //todo: rename
+    public static class CosmeticProfile
     {
-        var cosmetics = new List<Cosmetic>();
-
-        foreach (var product in products)
+        public static IEnumerable<Cosmetic> ToDomainCosmetic(this IEnumerable<ProductResponse> products, List<ComposeDto> composes)
         {
-            Cosmetic cosmetic = new()
+            var cosmetics = new List<Cosmetic>();
+
+            foreach (var product in products)
             {
-                Id = product.Id,
-                NavigateUrl = $"{ApiConst.RossmannPortalUrl}{product.NavigateUrl}",
-                Brand = product.Brand,
-                Caption = product.Caption,
-                Category = product.Category,
-                Price = product.Price,
-                Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose,
-                // todo: add remove find compose
-                MainCategoryId = product.MainCategoryId
-            };
-            cosmetics.Add(cosmetic);
+                cosmetics.Add(new Cosmetic
+                {
+                    Id = product.Id,
+                    NavigateUrl = $"{ApiConst.RossmannPortalUrl}{product.NavigateUrl}",
+                    Brand = product.Brand,
+                    Caption = product.Caption,
+                    Category = product.Category,
+                    Price = product.Price,
+                    Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose,
+                    // todo: add remove find compose
+                    MainCategoryId = product.MainCategoryId
+                });
+            }
+            return cosmetics;
         }
-        return cosmetics;
+
+
     }
-
-
 }
