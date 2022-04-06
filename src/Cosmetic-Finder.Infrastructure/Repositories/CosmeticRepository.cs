@@ -6,63 +6,60 @@ using Cosmetic_Finder.Infrastructure.Mappers;
 using SolrNet;
 using SolrNet.Commands.Parameters;
 
-namespace Cosmetic_Finder.Infrastructure.Repositories
+namespace Cosmetic_Finder.Infrastructure.Repositories;
+
+public class CosmeticRepository : ICosmeticRepository
 {
-    public class CosmeticRepository : ICosmeticRepository
+    private readonly ISolrOperations<SolrCosmetic> _solr;
+
+    private static readonly string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose},{SolrCosmetic.MainCategoryId}";
+
+    public CosmeticRepository(ISolrOperations<SolrCosmetic> solr)
     {
-        private readonly ISolrOperations<SolrCosmetic> _solr;
+        _solr = solr;
+    }
 
-        private static readonly string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose},{SolrCosmetic.MainCategoryId}";
+    public async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics, CancellationToken cancellationToken)
+    {
+        var solrCosmetic = cosmetics.ToInfrastructure();
+        var result = await _solr.AddRangeAsync(solrCosmetic);
 
-        public CosmeticRepository(ISolrOperations<SolrCosmetic> solr)
+        return result.Status == 0;
+    }
+
+    public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
+    {
+        var options = new QueryOptions
         {
-            _solr = solr;
+            Fields = new List<string> { BrandDtoFields },
+        };
+        if (sort)
+        {
+            options.OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) };
         }
 
-
-        public async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics)
+        if (!string.IsNullOrEmpty(search))
         {
-            var solrCosmetic = cosmetics.ToInfrastructure();
-            var result = await _solr.AddRangeAsync(solrCosmetic);
-
-            return result.Status == 0;
-        }
-
-        public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
-        {
-            var options = new QueryOptions
+            if (shouldContainCompose)
             {
-                Fields = new List<string> { BrandDtoFields },
-            };
-            if (sort)
-            {
-                options.OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) };
-            }
-
-            if (!string.IsNullOrEmpty(search))
-            {
-                if (shouldContainCompose)
+                options.FilterQueries = new List<ISolrQuery>
                 {
-                    options.FilterQueries = new List<ISolrQuery>
-                        {
-                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
-                            new SolrQueryByField(SolrCosmetic.LowerCompose, search),
-                        };
-                }
-                else
-                {
-                    options.FilterQueries = new List<ISolrQuery>
-                        {
-                            new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
-                            !new SolrQueryByField(SolrCosmetic.LowerCompose, search),
-                        };
-                }
+                    new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
+                    new SolrQueryByField(SolrCosmetic.LowerCompose, search),
+                };
             }
-
-            var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
-
-            return result.ToDomain();
+            else
+            {
+                options.FilterQueries = new List<ISolrQuery>
+                {
+                    new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
+                    !new SolrQueryByField(SolrCosmetic.LowerCompose, search),
+                };
+            }
         }
+
+        var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
+
+        return result.ToDomain();
     }
 }
-

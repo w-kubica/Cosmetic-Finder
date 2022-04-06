@@ -6,19 +6,18 @@ using Cosmetic_Finder.Infrastructure.Mappers;
 using Cosmetic_Finder.Infrastructure.Providers;
 using Cosmetic_Finder.Infrastructure.Repositories;
 
-namespace Cosmetic_Finder.Importer
+namespace Cosmetic_Finder.Importer;
+
+public class Program
 {
-    public class Program
+    private static async Task Main()
     {
-        private static async Task Main()
-        {
-            var products = (await CosmeticProvider.ImportProducts()).ToList();
-            var composes = await CosmeticProvider.ImportComposes(products);
-            var cosmetics = products.ToDomainCosmetic(composes);
+        var products = (await CosmeticProvider.ImportProducts()).ToList();
+        var composes = await CosmeticProvider.ImportComposes(products);
+        var cosmetics = products.ToDomainCosmetic(composes);
 
-            Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
+        Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
 
-            await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
-        }
+        await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
     }
 }
