@@ -1,26 +1,22 @@
-﻿using Cosmetic_Finder.Common.Application;
-using Cosmetic_Finder.Common.Infrastructure.Models;
-using Cosmetic_Finder.Common.Infrastructure.Repositories;
-using SolrNet;
 using System.Linq;
 using System.Threading.Tasks;
+using Cosmetic_Finder.Infrastructure.DTO;
+using Cosmetic_Finder.Infrastructure.Mappers;
+using Cosmetic_Finder.Infrastructure.Providers;
+using SolrNet;
 
-namespace Cosmetic_Finder.Importer
+namespace Cosmetic_Finder.Importer;
+
+public class Program
 {
-    public class Program
+    private static async Task Main()
     {
-        private static async Task Main()
-        {
-            var products = (await CosmeticProvider.ImportProducts()).ToList();
-            var composes = await CosmeticProvider.ImportCompose(products);
-            var cosmetics = products.ToDomainCosmetic(composes);
+        var products = (await CosmeticProvider.ImportProducts()).ToList();
+        var composes = await CosmeticProvider.ImportComposes(products);
+        var cosmetics = products.ToDomainCosmetic(composes);
 
-            Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
+        Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
 
-            await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
-
-
-
-        }
+        //await CosmeticRepository.AddOrUpdateCosmetics(cosmetics);
     }
 }
