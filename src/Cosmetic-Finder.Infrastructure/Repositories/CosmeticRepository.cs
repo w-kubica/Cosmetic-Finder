@@ -1,6 +1,7 @@
 using System.Globalization;
 using CommonServiceLocator;
 using Cosmetic_Finder.Core.Model;
+using Cosmetic_Finder.Core.Repositories;
 using Cosmetic_Finder.Infrastructure.DTO;
 using Cosmetic_Finder.Infrastructure.Mappers;
 using SolrNet;
@@ -8,11 +9,11 @@ using SolrNet.Commands.Parameters;
 
 namespace Cosmetic_Finder.Infrastructure.Repositories
 {
-    public static class CosmeticRepository
+    public class CosmeticRepository : ICosmeticRepository
     {
         private static readonly string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose},{SolrCosmetic.MainCategoryId}";
 
-        public static async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics)
+        public async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics)
         {
             var solrCosmetic = cosmetics.ToInfrastructure();
             var solr = ServiceLocator.Current.GetInstance<ISolrOperations<SolrCosmetic>>();
@@ -21,7 +22,7 @@ namespace Cosmetic_Finder.Infrastructure.Repositories
             return result.Status == 0;
         }
 
-        public static async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
         {
             var solr = ServiceLocator.Current.GetInstance<ISolrOperations<SolrCosmetic>>();
             var options = new QueryOptions

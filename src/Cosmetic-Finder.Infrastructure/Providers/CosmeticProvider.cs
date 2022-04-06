@@ -1,5 +1,6 @@
 using System.Net;
 using Cosmetic_Finder.Core.Model;
+using Cosmetic_Finder.Infrastructure.DTO;
 using Cosmetic_Finder.Infrastructure.Gateways;
 using Cosmetic_Finder.Infrastructure.Gateways.Response;
 using Cosmetic_Finder.Infrastructure.UtilsHtml;
@@ -31,18 +32,12 @@ namespace Cosmetic_Finder.Infrastructure.Providers
                 products.AddRange(product);
             }
 
-            ////wypisanie danych
-            //foreach (var product in products)
-            //{
-            //    Console.WriteLine(product.Id);
-            //}
-
             return products;
         }
 
-        public static async Task<List<Compose>> ImportCompose(IEnumerable<ProductResponse> products)
+        public static async Task<List<ComposeDto>> ImportComposes(IEnumerable<ProductResponse> products)
         {
-            var getComposesTasks = new List<Task<Compose>>();
+            var getComposesTasks = new List<Task<ComposeDto>>();
 
             foreach (var product in products)
             {
@@ -54,7 +49,7 @@ namespace Cosmetic_Finder.Infrastructure.Providers
             await Task.WhenAll(getComposesTasks);
 
             // wyłuskanie danych
-            var composes = new List<Compose>();
+            var composes = new List<ComposeDto>();
 
             foreach (var composeTask in getComposesTasks)
             {
@@ -64,7 +59,7 @@ namespace Cosmetic_Finder.Infrastructure.Providers
             return composes;
         }
 
-        private static async Task<Compose> GettingComposeByProductId(ProductResponse product)
+        private static async Task<ComposeDto> GettingComposeByProductId(ProductResponse product)
         {
             var productsApi = RestService.For<IProductsAdditionalsApi>($"{ApiConst.RossmannPortalUrl}/products/api");
 
@@ -78,7 +73,7 @@ namespace Cosmetic_Finder.Infrastructure.Providers
                 var statusCode = ex.StatusCode;
                 if (statusCode == HttpStatusCode.NoContent)
                 {
-                    return new Compose(product.Id, string.Empty);
+                    return new ComposeDto(product.Id, string.Empty);
                 }
             }
 
@@ -91,12 +86,13 @@ namespace Cosmetic_Finder.Infrastructure.Providers
             HtmlUtils.RemoveStyles(html);
             var noHtml = HtmlUtils.ConvertHtmlToString(html);
 
-            return new Compose(product.Id, noHtml);
+            return new ComposeDto(product.Id, noHtml);
         }
 
         private static async Task<IEnumerable<ProductResponse>> GettingProductsByCategoryId(KeyValuePair<int, string> category)
         {
             var categoryId = category.Key;
+
             var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
             var products = (await productsApi.Get(categoryId)).Data.Products;
 

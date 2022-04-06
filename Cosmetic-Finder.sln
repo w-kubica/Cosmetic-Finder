@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Importer", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{C28D1C23-F464-44A6-B005-4A9DCFE5FAA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.Core", "src\Cosmetic-Finder.Core\Cosmetic-Finder.Core.csproj", "{BB776E64-98D7-4B39-AF10-DA719DF3FB60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Core", "src\Cosmetic-Finder.Core\Cosmetic-Finder.Core.csproj", "{BB776E64-98D7-4B39-AF10-DA719DF3FB60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.Infrastructure", "src\Cosmetic-Finder.Infrastructure\Cosmetic-Finder.Infrastructure.csproj", "{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Infrastructure", "src\Cosmetic-Finder.Infrastructure\Cosmetic-Finder.Infrastructure.csproj", "{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.Application", "src\Cosmetic-Finder.Application\Cosmetic-Finder.Application.csproj", "{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Application", "src\Cosmetic-Finder.Application\Cosmetic-Finder.Application.csproj", "{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.API", "src\Apps\Cosmetic-Finder.API\Cosmetic-Finder.API.csproj", "{93D10A58-04B0-4B18-A57B-982356AD39FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,17 @@ Global
 		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D10A58-04B0-4B18-A57B-982356AD39FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D10A58-04B0-4B18-A57B-982356AD39FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D10A58-04B0-4B18-A57B-982356AD39FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D10A58-04B0-4B18-A57B-982356AD39FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD} = {C28D1C23-F464-44A6-B005-4A9DCFE5FAA3}
+		{93D10A58-04B0-4B18-A57B-982356AD39FF} = {C28D1C23-F464-44A6-B005-4A9DCFE5FAA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7240A5E-FC21-4786-B3B6-1D73E7FE9AA4}

@@ -1,11 +1,11 @@
-namespace Cosmetic_Finder.Core.Model
+namespace Cosmetic_Finder.Infrastructure.DTO
 {
-    public class Compose
+    public class ComposeDto
     {
         public int Id { get; set; }
         public string ProductCompose { get; set; }
 
-        public Compose(int id, string productCompose)
+        public ComposeDto(int id, string productCompose)
         {
             Id = id;
             ProductCompose = productCompose;

@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Cosmetic-Finder.Core\Cosmetic-Finder.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+
 </Project>

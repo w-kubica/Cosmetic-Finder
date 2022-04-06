@@ -13,7 +13,7 @@ namespace Cosmetic_Finder.Importer
         private static async Task Main()
         {
             var products = (await CosmeticProvider.ImportProducts()).ToList();
-            var composes = await CosmeticProvider.ImportCompose(products);
+            var composes = await CosmeticProvider.ImportComposes(products);
             var cosmetics = products.ToDomainCosmetic(composes);
 
             Startup.Init<SolrCosmetic>("http://localhost:8983/solr/cosmetics");

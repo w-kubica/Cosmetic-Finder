@@ -1,4 +1,4 @@
-namespace Cosmetic_Finder.Infrastructure
+namespace Cosmetic_Finder.Infrastructure.Gateways
 {
     public static class ApiConst
     {
