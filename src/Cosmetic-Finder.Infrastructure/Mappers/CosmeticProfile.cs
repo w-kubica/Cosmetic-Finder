@@ -16,6 +16,7 @@ public static class CosmeticProfile
         {
             cosmetics.Add(new Cosmetic
             {
+                //todo: name, oldprice
                 Id = product.Id,
                 NavigateUrl = $"{ApiConst.RossmannPortalUrl}{product.NavigateUrl}",
                 Brand = product.Brand,
@@ -24,7 +25,8 @@ public static class CosmeticProfile
                 Price = product.Price,
                 Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose,
                 // todo: add remove find compose
-                MainCategoryId = product.MainCategoryId
+                MainCategoryId = product.MainCategoryId,
+                Picture = product.Pictures?.FirstOrDefault()?.Large
             });
         }
         return cosmetics;

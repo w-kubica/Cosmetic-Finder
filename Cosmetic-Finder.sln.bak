@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Importer", "src\Apps\Cosmetic-Finder.Importer\Cosmetic-Finder.Importer.csproj", "{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Core", "src\Cosmetic-Finder.Core\Cosmetic-Finder.Core.csproj", "{BB776E64-98D7-4B39-AF10-DA719DF3FB60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.TUI", "src\Apps\Cosmetic-Finder.TUI\Cosmetic-Finder.TUI.csproj", "{9D9A66C1-D9E1-45D9-BBBE-50801174AEDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Infrastructure", "src\Cosmetic-Finder.Infrastructure\Cosmetic-Finder.Infrastructure.csproj", "{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.Common", "src\Cosmetic-Finder.Common\Cosmetic-Finder.Common.csproj", "{686BA2DC-6451-441E-9D37-633FC47CD208}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{C28D1C23-F464-44A6-B005-4A9DCFE5FAA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Application", "src\Cosmetic-Finder.Application\Cosmetic-Finder.Application.csproj", "{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,25 +15,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D9A66C1-D9E1-45D9-BBBE-50801174AEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9A66C1-D9E1-45D9-BBBE-50801174AEDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D9A66C1-D9E1-45D9-BBBE-50801174AEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D9A66C1-D9E1-45D9-BBBE-50801174AEDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{686BA2DC-6451-441E-9D37-633FC47CD208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{686BA2DC-6451-441E-9D37-633FC47CD208}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{686BA2DC-6451-441E-9D37-633FC47CD208}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{686BA2DC-6451-441E-9D37-633FC47CD208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB776E64-98D7-4B39-AF10-DA719DF3FB60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB776E64-98D7-4B39-AF10-DA719DF3FB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB776E64-98D7-4B39-AF10-DA719DF3FB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB776E64-98D7-4B39-AF10-DA719DF3FB60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AEA7B65-9514-491A-B1CC-3C2D52A1D8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{76C0AC37-A0C2-43BF-AEFA-21A12BEF13CD} = {C28D1C23-F464-44A6-B005-4A9DCFE5FAA3}
-		{9D9A66C1-D9E1-45D9-BBBE-50801174AEDE} = {C28D1C23-F464-44A6-B005-4A9DCFE5FAA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7240A5E-FC21-4786-B3B6-1D73E7FE9AA4}

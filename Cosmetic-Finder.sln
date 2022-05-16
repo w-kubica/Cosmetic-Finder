@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.Application", "src\Cosmetic-Finder.Application\Cosmetic-Finder.Application.csproj", "{D4FCF5B9-E6C4-490B-A27A-79993E7130DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmetic-Finder.API", "src\Apps\Cosmetic-Finder.API\Cosmetic-Finder.API.csproj", "{93D10A58-04B0-4B18-A57B-982356AD39FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cosmetic-Finder.API", "src\Apps\Cosmetic-Finder.API\Cosmetic-Finder.API.csproj", "{93D10A58-04B0-4B18-A57B-982356AD39FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
