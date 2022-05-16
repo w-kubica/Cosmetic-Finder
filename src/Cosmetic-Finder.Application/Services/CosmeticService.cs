@@ -15,7 +15,8 @@ public class CosmeticService : ICosmeticService
     public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose,
         bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
     {
-        var cosmetics = await _cosmeticRepository.GetCosmetics(search, mainCategoryId, shouldContainCompose, sort, sortByPriceAsc,
+        var cosmetics = await _cosmeticRepository.GetCosmetics(search, mainCategoryId, shouldContainCompose, sort,
+            sortByPriceAsc,
             cancellationToken);
 
         return cosmetics;

@@ -22,5 +22,4 @@ public class CosmeticsController : Controller
 
         return Ok(cosmetics);
     }
-
 }

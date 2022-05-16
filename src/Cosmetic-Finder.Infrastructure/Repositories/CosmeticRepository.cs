@@ -62,4 +62,6 @@ public class CosmeticRepository : ICosmeticRepository
 
         return result.ToDomain();
     }
+
+
 }

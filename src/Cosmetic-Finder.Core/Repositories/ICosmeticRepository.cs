@@ -7,4 +7,6 @@ public interface ICosmeticRepository
     public Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics);
     public Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId,
         bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken);
+
+  
 }
