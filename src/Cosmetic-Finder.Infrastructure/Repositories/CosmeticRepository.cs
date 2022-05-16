@@ -21,7 +21,7 @@ public class CosmeticRepository : ICosmeticRepository
 
     public async Task<bool> AddOrUpdateCosmetics(IEnumerable<Cosmetic> cosmetics)
     {
-        var solrCosmetic = cosmetics.ToInfrastructure();
+        var solrCosmetic = cosmetics.Select(b => b.ToInfrastructure());
         var result = await _solr.AddRangeAsync(solrCosmetic);
 
         return result.Status == 0;
@@ -60,6 +60,6 @@ public class CosmeticRepository : ICosmeticRepository
 
         var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
 
-        return result.ToDomain();
+        return result.Select(a => a.ToDomain());
     }
 }

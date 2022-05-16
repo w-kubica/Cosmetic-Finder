@@ -5,7 +5,7 @@ namespace Cosmetic_Finder.Infrastructure.Mappers;
 
 public static class CosmeticMapper
 {
-    private static SolrCosmetic ToInfrastructure(this Cosmetic cosmetic)
+    public static SolrCosmetic ToInfrastructure(this Cosmetic cosmetic)
     {
         return new SolrCosmetic
         {
@@ -21,11 +21,6 @@ public static class CosmeticMapper
             Picture = cosmetic.Picture,
             Url = cosmetic.NavigateUrl
         };
-    }
-
-    public static IEnumerable<SolrCosmetic> ToInfrastructure(this IEnumerable<Cosmetic> cosmetics)
-    {
-        return cosmetics.Select(b => b.ToInfrastructure());
     }
 
     public static Cosmetic ToDomain(this SolrCosmetic solrCosmetic)
@@ -44,10 +39,5 @@ public static class CosmeticMapper
             Picture = solrCosmetic.Picture,
             NavigateUrl = solrCosmetic.Url
         };
-    }
-
-    public static IEnumerable<Cosmetic> ToDomain(this IEnumerable<SolrCosmetic> cosmetics)
-    {
-        return cosmetics.Select(b => b.ToDomain());
     }
 }

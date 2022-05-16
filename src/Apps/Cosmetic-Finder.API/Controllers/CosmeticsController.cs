@@ -14,8 +14,7 @@ public class CosmeticsController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] string search, [FromQuery] int mainCategoryId, [FromQuery] bool sort, [FromQuery] bool sortByPriceAsc,
-        [FromQuery] bool shouldContainCompose, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get(CancellationToken cancellationToken, [FromQuery] string search = "ascorbic acid", [FromQuery] bool shouldContainCompose = true, [FromQuery] int mainCategoryId = 8686, [FromQuery] bool sort = true, [FromQuery] bool sortByPriceAsc = false )
     {
         var cosmetics = await _cosmeticService.GetCosmetics(search, mainCategoryId, shouldContainCompose, sort, sortByPriceAsc,
             cancellationToken);
