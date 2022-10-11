@@ -13,12 +13,19 @@ public class CosmeticService : ICosmeticService
     }
 
     public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose,
-        bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
+        bool sort, bool sortByPriceAsc, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         var cosmetics = await _cosmeticRepository.GetCosmetics(search, mainCategoryId, shouldContainCompose, sort,
-            sortByPriceAsc,
+            sortByPriceAsc, pageNumber, pageSize,
             cancellationToken);
 
         return cosmetics;
+    }
+
+    public async Task<int> GetAllCountAsync(string search, int mainCategoryId, bool shouldContainCompose, bool sort,
+        bool sortByPriceAsc, CancellationToken cancellationToken)
+    {
+        return await _cosmeticRepository.GetAllCountAsync(search, mainCategoryId, shouldContainCompose, sort,
+            sortByPriceAsc, cancellationToken);
     }
 }

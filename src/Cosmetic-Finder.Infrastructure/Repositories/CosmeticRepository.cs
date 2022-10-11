@@ -27,11 +27,14 @@ public class CosmeticRepository : ICosmeticRepository
         return result.Status == 0;
     }
 
-    public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         var options = new QueryOptions
         {
-            Fields = new List<string> { BrandDtoFields },
+            Start = (pageNumber - 1) * pageSize,
+            Rows = pageSize,
+            Fields = new List<string> { BrandDtoFields }
+
         };
         if (sort)
         {
@@ -58,10 +61,48 @@ public class CosmeticRepository : ICosmeticRepository
             }
         }
 
+
         var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
+
 
         return result.Select(a => a.ToDomain());
     }
 
+    public async Task<int> GetAllCountAsync(string search, int mainCategoryId, bool shouldContainCompose, bool sort,
+        bool sortByPriceAsc, CancellationToken cancellationToken)
+    {
+        var options = new QueryOptions
+        {
+            Fields = new List<string> { BrandDtoFields }
 
+        };
+        if (sort)
+        {
+            options.OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) };
+        }
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            if (shouldContainCompose)
+            {
+                options.FilterQueries = new List<ISolrQuery>
+                {
+                    new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
+                    new SolrQueryByField(SolrCosmetic.LowerCompose, search),
+                };
+            }
+            else
+            {
+                options.FilterQueries = new List<ISolrQuery>
+                {
+                    new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)),
+                    !new SolrQueryByField(SolrCosmetic.LowerCompose, search),
+                };
+            }
+        }
+
+
+        var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
+        return result.NumFound;
+    }
 }
