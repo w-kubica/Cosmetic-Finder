@@ -27,19 +27,19 @@ public class CosmeticRepository : ICosmeticRepository
         return result.Status == 0;
     }
 
-    public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId, bool shouldContainCompose, int pageNumber, int pageSize, string sortField, bool ascending, CancellationToken cancellationToken)
     {
         var options = new QueryOptions
         {
+            Fields = new List<string> { BrandDtoFields },
+            OrderBy = new[] { new SortOrder(sortField, ascending ? Order.ASC : Order.DESC) },
             Start = (pageNumber - 1) * pageSize,
-            Rows = pageSize,
-            Fields = new List<string> { BrandDtoFields }
-
+            Rows = pageSize
         };
-        if (sort)
-        {
-            options.OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) };
-        }
+        //if (sort)
+        //{
+        //    options.OrderBy = new[] { new SortOrder(sortField, ascending ? Order.ASC : Order.DESC) };
+        //}
 
         if (!string.IsNullOrEmpty(search))
         {
@@ -68,18 +68,14 @@ public class CosmeticRepository : ICosmeticRepository
         return result.Select(a => a.ToDomain());
     }
 
-    public async Task<int> GetAllCountAsync(string search, int mainCategoryId, bool shouldContainCompose, bool sort,
-        bool sortByPriceAsc, CancellationToken cancellationToken)
+    public async Task<int> GetAllCountAsync(string search, int mainCategoryId, bool shouldContainCompose,
+       CancellationToken cancellationToken)
     {
         var options = new QueryOptions
         {
             Fields = new List<string> { BrandDtoFields }
 
         };
-        if (sort)
-        {
-            options.OrderBy = new[] { new SortOrder(SolrCosmetic.CosmeticPrice, sortByPriceAsc ? Order.ASC : Order.DESC) };
-        }
 
         if (!string.IsNullOrEmpty(search))
         {

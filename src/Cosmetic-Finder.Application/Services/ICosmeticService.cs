@@ -5,9 +5,10 @@ namespace Cosmetic_Finder.Application.Services;
 public interface ICosmeticService
 {
     public Task<IEnumerable<Cosmetic>> GetCosmetics(string search, int mainCategoryId,
-        bool shouldContainCompose, bool sort, bool sortByPriceAsc, int pageNumber, int pageSize, CancellationToken cancellationToken);
+        bool shouldContainCompose, int pageNumber, int pageSize, string sortField, bool ascending, CancellationToken cancellationToken);
 
-    public Task<int> GetAllCountAsync(string search, int mainCategoryId, bool shouldContainCompose, bool sort, bool sortByPriceAsc, CancellationToken cancellationToken);
+    public Task<int> GetAllCountAsync(string search, int mainCategoryId,
+        bool shouldContainCompose, CancellationToken cancellationToken);
 }
 
 

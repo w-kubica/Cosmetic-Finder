@@ -16,14 +16,16 @@ public class CosmeticsController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get(CancellationToken cancellationToken, [FromQuery] PaginationFilter paginationFilter, [FromQuery] string search = "ascorbic acid", [FromQuery] bool shouldContainCompose = true, [FromQuery] int mainCategoryId = 8686, [FromQuery] bool sort = true, [FromQuery] bool sortByPriceAsc = false)
+    public async Task<IActionResult> Get(CancellationToken cancellationToken, [FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string search = "ascorbic acid", [FromQuery] bool shouldContainCompose = true, [FromQuery] int mainCategoryId = 8686)
     {
         var validPaginationFilter = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
+        var validSortingFilter = new SortingFilter(sortingFilter.SortField, sortingFilter.Ascending);
 
-        var cosmetics = await _cosmeticService.GetCosmetics(search, mainCategoryId, shouldContainCompose, sort, sortByPriceAsc, validPaginationFilter.PageNumber, validPaginationFilter.PageSize,
+        var cosmetics = await _cosmeticService.GetCosmetics(search, mainCategoryId, shouldContainCompose, validPaginationFilter.PageNumber, validPaginationFilter.PageSize, validSortingFilter.SortField, validSortingFilter.Ascending,
             cancellationToken);
 
-        var totalRecords = await _cosmeticService.GetAllCountAsync(search, mainCategoryId, shouldContainCompose, sort, sortByPriceAsc, cancellationToken);
+        var totalRecords =
+            await _cosmeticService.GetAllCountAsync(search, mainCategoryId, shouldContainCompose, cancellationToken);
 
         var result = PaginationHelper.CreatePagedResponse(cosmetics, validPaginationFilter, totalRecords);
 
