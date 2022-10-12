@@ -15,6 +15,12 @@ public class CosmeticsController : Controller
         _cosmeticService = cosmeticService;
     }
 
+    [HttpGet("[action]")]
+    public IActionResult GetSortField()
+    {
+        return Ok(SortingHelper.GetSortFields().Select(s => s.Key));
+    }
+
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken cancellationToken, [FromQuery] PaginationFilter paginationFilter, [FromQuery] SortingFilter sortingFilter, [FromQuery] string search = "ascorbic acid", [FromQuery] bool shouldContainCompose = true, [FromQuery] int mainCategoryId = 8686)
     {
