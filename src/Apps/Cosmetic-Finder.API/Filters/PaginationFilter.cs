@@ -2,7 +2,7 @@ namespace Cosmetic_Finder.API.Filters;
 
 public class PaginationFilter
 {
-    public const int MaxPageSize = 100;
+    public const int MaxPageSize = 24;
     public int PageNumber { get; set; }
     public int PageSize { get; set; }
 

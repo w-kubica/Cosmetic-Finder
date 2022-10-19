@@ -33,51 +33,35 @@ public class CosmeticRepository : ICosmeticRepository
         {
             Fields = new List<string> { BrandDtoFields },
             OrderBy = new[] { new SortOrder(sortField, ascending ? Order.ASC : Order.DESC) },
-            Start = (pageNumber - 1) * pageSize,
+            StartOrCursor = new StartOrCursor.Start((pageNumber - 1) * pageSize),
             Rows = pageSize
         };
-        //if (sort)
-        //{
-        //    options.OrderBy = new[] { new SortOrder(sortField, ascending ? Order.ASC : Order.DESC) };
-        //}
 
-        string[] searchArray = search.Split(",");
+        var searchArray = search.Split(",");
 
-        var queryList = new List<ISolrQuery>();
+        options.FilterQueries = new List<ISolrQuery>();
+
         if (!string.IsNullOrEmpty(search))
         {
-            if (shouldContainCompose)
+            options.FilterQueries.Add(new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)));
+            if (!shouldContainCompose)
             {
-
                 foreach (var item in searchArray)
                 {
-                    queryList.Add(new SolrMultipleCriteriaQuery(new List<ISolrQuery>
-                    {
-                        new SolrQueryByField(SolrCosmetic.LowerCompose, item)
-
-                    }, "AND"));
+                    NotContainComposeFilter(options, item);
                 }
-                queryList.Add(new SolrQueryByField(SolrCosmetic.MainCategoryId,
-                    mainCategoryId.ToString(CultureInfo.InvariantCulture)));
+                AdditionalConditions(options);
             }
-            else
+            if(shouldContainCompose)
             {
                 foreach (var item in searchArray)
                 {
-                    queryList.Add(!new SolrMultipleCriteriaQuery(new List<ISolrQuery>
-                    {
-                        new SolrQueryByField(SolrCosmetic.LowerCompose, item)
-
-                    }, "AND"));
+                    ContainComposeFilter(options, item);
                 }
-                queryList.Add(new SolrQueryByField(SolrCosmetic.MainCategoryId,
-                    mainCategoryId.ToString(CultureInfo.InvariantCulture)));
             }
         }
-        var finalQuery = new SolrMultipleCriteriaQuery(queryList, "AND");
 
-        var result = await _solr.QueryAsync(finalQuery, cancellationToken);
-
+        var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
         return result.Select(a => a.ToDomain());
     }
 
@@ -89,40 +73,46 @@ public class CosmeticRepository : ICosmeticRepository
             Fields = new List<string> { BrandDtoFields }
 
         };
-        string[] searchArray = search.Split(",");
+        var searchArray = search.Split(",");
 
-        var queryList = new List<ISolrQuery>();
+        options.FilterQueries = new List<ISolrQuery>();
 
-        if (shouldContainCompose)
+        if (!string.IsNullOrEmpty(search))
         {
-
-            foreach (var item in searchArray)
+            options.FilterQueries.Add(new SolrQueryByField(SolrCosmetic.MainCategoryId, mainCategoryId.ToString(CultureInfo.InvariantCulture)));
+            if (!shouldContainCompose)
             {
-                queryList.Add(new SolrMultipleCriteriaQuery(new List<ISolrQuery>
+                foreach (var item in searchArray)
                 {
-                    new SolrQueryByField(SolrCosmetic.LowerCompose, item)
-
-                }, "AND"));
+                    NotContainComposeFilter(options, item);
+                }
+                AdditionalConditions(options);
             }
-            queryList.Add(new SolrQueryByField(SolrCosmetic.MainCategoryId,
-                mainCategoryId.ToString(CultureInfo.InvariantCulture)));
-        }
-        else
-        {
-            foreach (var item in searchArray)
+            if (shouldContainCompose)
             {
-                queryList.Add(!new SolrMultipleCriteriaQuery(new List<ISolrQuery>
+                foreach (var item in searchArray)
                 {
-                    new SolrQueryByField(SolrCosmetic.LowerCompose, item)
-
-                }, "AND"));
+                    ContainComposeFilter(options, item);
+                }
+               
             }
-            queryList.Add(new SolrQueryByField(SolrCosmetic.MainCategoryId,
-                mainCategoryId.ToString(CultureInfo.InvariantCulture)));
         }
-        var finalQuery = new SolrMultipleCriteriaQuery(queryList, "AND");
-
-        var result = await _solr.QueryAsync(finalQuery, cancellationToken);
+        var result = await _solr.QueryAsync(SolrQuery.All, options, cancellationToken);
         return result.NumFound;
+    }
+
+    private static void NotContainComposeFilter(QueryOptions options, string item)
+    {
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.LowerCompose, item));
+    }
+
+    private static void ContainComposeFilter(QueryOptions options, string item)
+        => options.FilterQueries.Add(new SolrQueryByField(SolrCosmetic.LowerCompose, item));
+
+    private static void AdditionalConditions(QueryOptions options)
+    {
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, "Brak danych"));
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, "Brak danych;"));
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, ""));
     }
 }

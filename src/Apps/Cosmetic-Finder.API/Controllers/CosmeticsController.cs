@@ -30,8 +30,7 @@ public class CosmeticsController : Controller
         var cosmetics = await _cosmeticService.GetCosmetics(search, mainCategoryId, shouldContainCompose, validPaginationFilter.PageNumber, validPaginationFilter.PageSize, validSortingFilter.SortField, validSortingFilter.Ascending,
             cancellationToken);
 
-        var totalRecords =
-            await _cosmeticService.GetAllCountAsync(search, mainCategoryId, shouldContainCompose, cancellationToken);
+        var totalRecords =await _cosmeticService.GetAllCountAsync(search, mainCategoryId, shouldContainCompose, cancellationToken);
 
         var result = PaginationHelper.CreatePagedResponse(cosmetics, validPaginationFilter, totalRecords);
 
