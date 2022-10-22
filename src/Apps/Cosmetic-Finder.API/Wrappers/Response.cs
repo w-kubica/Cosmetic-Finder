@@ -6,7 +6,7 @@ public class Response<T>
     public bool Succeeded { get; set; }
     public Response()
     {
-        
+
     }
 
     public Response(T data)
