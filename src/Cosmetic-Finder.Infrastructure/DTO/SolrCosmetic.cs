@@ -50,5 +50,4 @@ public class SolrCosmetic
 
     [SolrField(CosmeticPicture)]
     public string Picture { get; set; }
-
 }

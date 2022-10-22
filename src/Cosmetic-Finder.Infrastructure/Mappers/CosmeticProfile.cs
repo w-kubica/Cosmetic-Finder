@@ -16,13 +16,14 @@ public static class CosmeticProfile
         {
             cosmetics.Add(new Cosmetic
             {
-                //todo: name, oldprice
                 Id = product.Id,
+                Name = product.Name,
                 NavigateUrl = $"{ApiConst.RossmannPortalUrl}{product.NavigateUrl}",
                 Brand = product.Brand,
                 Caption = product.Caption,
                 Category = product.Category,
                 Price = product.Price,
+                OldPrice = product.OldPrice,
                 Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose,
                 // todo: add remove find compose
                 MainCategoryId = product.MainCategoryId,

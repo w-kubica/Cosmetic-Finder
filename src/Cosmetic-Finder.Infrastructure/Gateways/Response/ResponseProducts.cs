@@ -21,12 +21,15 @@ public class ProductResponse
 }
 public class Picture
 {
+    public int Id { get; set; }
     public string Large { get; set; }
+    public string Type { get; set; }
+
 }
 
 public class Data
 {
     public List<ProductResponse> Products { get; set; }
-       
+
     public int TotalCount { get; set; }
 }

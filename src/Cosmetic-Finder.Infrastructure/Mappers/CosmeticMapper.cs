@@ -28,8 +28,8 @@ public static class CosmeticMapper
         return new Cosmetic
         {
             Id = solrCosmetic.Id,
-            Name = solrCosmetic.Name,
             Brand = solrCosmetic.Brand,
+            Name = solrCosmetic.Name,
             Caption = solrCosmetic.Caption,
             Category = solrCosmetic.Category,
             Compose = solrCosmetic.Compose,

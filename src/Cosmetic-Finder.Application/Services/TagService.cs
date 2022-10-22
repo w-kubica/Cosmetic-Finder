@@ -33,7 +33,11 @@ public class TagService : ITagService
     {
         await _tagRepository.UpdateAsync(tag.ToDomain());
     }
-   
 
-    public async Task DeleteTagAsync(int id) => throw new NotImplementedException();
+
+    public async Task DeleteTagAsync(int id)
+    {
+        var tag = await _tagRepository.GetByIdAsync(id);
+        await _tagRepository.DeleteAsync(tag);
+    }
 }

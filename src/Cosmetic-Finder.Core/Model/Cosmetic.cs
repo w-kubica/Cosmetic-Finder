@@ -13,4 +13,24 @@ public record Cosmetic
     public string Category { get; set; }
     public string NavigateUrl { get; set; }
     public string Picture { get; set; }
+
+    public Cosmetic(int id, string brand, string name, string caption, string compose, double price, double oldPrice, int mainCategoryId, string category, string navigateUrl, string picture)
+    {
+        Id = id;
+        Brand = brand;
+        Name = name;
+        Caption = caption;
+        Compose = compose;
+        Price = price;
+        OldPrice = oldPrice;
+        MainCategoryId = mainCategoryId;
+        Category = category;
+        NavigateUrl = navigateUrl;
+        Picture = picture;
+    }
+
+    public Cosmetic()
+    {
+
+    }
 }

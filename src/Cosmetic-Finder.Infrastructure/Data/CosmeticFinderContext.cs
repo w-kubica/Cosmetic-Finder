@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 namespace Cosmetic_Finder.Infrastructure.Data;
 public class CosmeticFinderContext : DbContext
 {
-    private readonly IConfiguration? _configuration;
+    private readonly IConfiguration _configuration;
     public virtual DbSet<TagDb> Tags { get; set; } = null!;
 
     public CosmeticFinderContext(DbContextOptions<CosmeticFinderContext> options, IConfiguration configuration) : base(options)

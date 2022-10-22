@@ -9,6 +9,7 @@ public interface ICosmeticService
 
     public Task<int> GetAllCountAsync(string search, int mainCategoryId,
         bool shouldContainCompose, CancellationToken cancellationToken);
+
 }
 
 

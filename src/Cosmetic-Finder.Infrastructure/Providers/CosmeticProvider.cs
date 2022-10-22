@@ -92,9 +92,33 @@ public static class CosmeticProvider
     private static async Task<IEnumerable<ProductResponse>> GettingProductsByCategoryId(KeyValuePair<int, string> category)
     {
         var categoryId = category.Key;
+        var pagesize = 100;
+
+        var products = new List<ProductResponse>();
+        //products/api/Products?CategoryId=8686&PageSize=6500
 
         var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
-        var products = (await productsApi.Get(categoryId)).Data.Products;
+        var request = await productsApi.Get(9220, pagesize, 1);
+       
+        var totalCount = (double)request.Data.TotalCount;
+
+        var totalPage = (int)Math.Ceiling(totalCount / pagesize);
+        var oneRequest = (int)Math.Ceiling((double)totalPage / 9);
+
+        for (int j = 0; j < oneRequest; j++)
+        {
+            for (var i = (j * 9) + 1; i <= totalPage; i++)
+            {
+                var productList = products;
+
+                productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
+                request = await productsApi.Get(9220, pagesize, i);
+                var productsTemp = request.Data.Products;
+
+                products = productList.Concat(productsTemp).ToList();
+            }
+            Thread.Sleep(10000);
+        }
 
         foreach (var product in products)
         {
