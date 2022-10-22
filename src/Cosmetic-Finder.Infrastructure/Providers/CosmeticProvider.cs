@@ -11,9 +11,9 @@ namespace Cosmetic_Finder.Infrastructure.Providers;
 
 public static class CosmeticProvider
 {
-    public static async Task<IEnumerable<ProductResponse>> ImportProducts()
+    public static async Task<IEnumerable<Product>> ImportProducts()
     {
-        var getProductsTasks = new List<Task<IEnumerable<ProductResponse>>>();
+        var getProductsTasks = new List<Task<IEnumerable<Product>>>();
 
         foreach (var category in Categories.CosmeticCategories)
         {
@@ -23,7 +23,7 @@ public static class CosmeticProvider
 
         await Task.WhenAll(getProductsTasks);
 
-        var products = new List<ProductResponse>();
+        var products = new List<Product>();
 
         // wyłuskanie danych
         foreach (var productTask in getProductsTasks)
@@ -35,7 +35,7 @@ public static class CosmeticProvider
         return products;
     }
 
-    public static async Task<List<ComposeDto>> ImportComposes(IEnumerable<ProductResponse> products)
+    public static async Task<List<ComposeDto>> ImportComposes(IEnumerable<Product> products)
     {
         var getComposesTasks = new List<Task<ComposeDto>>();
 
@@ -59,7 +59,7 @@ public static class CosmeticProvider
         return composes;
     }
 
-    private static async Task<ComposeDto> GettingComposeByProductId(ProductResponse product)
+    private static async Task<ComposeDto> GettingComposeByProductId(Product product)
     {
         var productsApi = RestService.For<IProductsAdditionalsApi>($"{ApiConst.RossmannPortalUrl}/products/api");
 
@@ -89,42 +89,44 @@ public static class CosmeticProvider
         return new ComposeDto(product.Id, noHtml);
     }
 
-    private static async Task<IEnumerable<ProductResponse>> GettingProductsByCategoryId(KeyValuePair<int, string> category)
+    private static async Task<IEnumerable<Product>> GettingProductsByCategoryId(KeyValuePair<int, string> category)
     {
         var categoryId = category.Key;
-        var pagesize = 100;
-
-        var products = new List<ProductResponse>();
-        //products/api/Products?CategoryId=8686&PageSize=6500
 
         var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
-        var request = await productsApi.Get(9220, pagesize, 1);
-       
-        var totalCount = (double)request.Data.TotalCount;
+        var request = await productsApi.Get(8528, 1);
+        var totalPage = request.Data.TotalPages;
 
-        var totalPage = (int)Math.Ceiling(totalCount / pagesize);
-        var oneRequest = (int)Math.Ceiling((double)totalPage / 9);
+        var getProductsTasks = new List<Task<ResponseProducts>>();
 
-        for (int j = 0; j < oneRequest; j++)
+        for (var k = 1; k <= totalPage; k++)
         {
-            for (var i = (j * 9) + 1; i <= totalPage; i++)
+            var task = productsApi.Get(8528, k);
+            getProductsTasks.Add(task);
+        }
+
+        await Task.WhenAll(getProductsTasks);
+
+        var products = new List<ResponseProducts>();
+
+        // wyłuskanie danych
+        foreach (var productTask in getProductsTasks)
+        {
+            var product = await productTask;
+            products.Add(product);
+        }
+
+        var productsNew = new List<Product>();
+
+        foreach (var item in products)
+        {
+            productsNew = item.Data.Products;
+            foreach (var product in productsNew)
             {
-                var productList = products;
-
-                productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
-                request = await productsApi.Get(9220, pagesize, i);
-                var productsTemp = request.Data.Products;
-
-                products = productList.Concat(productsTemp).ToList();
+                product.MainCategoryId = categoryId;
             }
-            Thread.Sleep(10000);
         }
 
-        foreach (var product in products)
-        {
-            product.MainCategoryId = categoryId;
-        }
-
-        return products;
+        return productsNew;
     }
 }

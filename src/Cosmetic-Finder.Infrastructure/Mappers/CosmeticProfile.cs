@@ -8,7 +8,7 @@ namespace Cosmetic_Finder.Infrastructure.Mappers;
 //todo: rename
 public static class CosmeticProfile
 {
-    public static IEnumerable<Cosmetic> ToDomainCosmetic(this IEnumerable<ProductResponse> products, List<ComposeDto> composes)
+    public static IEnumerable<Cosmetic> ToDomainCosmetic(this IEnumerable<Product> products, List<ComposeDto> composes)
     {
         var cosmetics = new List<Cosmetic>();
 

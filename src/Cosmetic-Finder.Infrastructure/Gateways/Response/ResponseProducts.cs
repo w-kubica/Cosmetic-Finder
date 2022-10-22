@@ -4,8 +4,15 @@ public class ResponseProducts
 {
     public Data Data { get; set; }
 }
+public class Data
+{
+    public List<Product> Products { get; set; }
 
-public class ProductResponse
+    public int TotalCount { get; set; }
+
+    public int TotalPages { get; set; }
+}
+public class Product
 {
     public int Id { get; set; }
     public string Brand { get; set; }
@@ -21,15 +28,9 @@ public class ProductResponse
 }
 public class Picture
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
     public string Large { get; set; }
-    public string Type { get; set; }
+    //public string Type { get; set; }
 
 }
 
-public class Data
-{
-    public List<ProductResponse> Products { get; set; }
-
-    public int TotalCount { get; set; }
-}
