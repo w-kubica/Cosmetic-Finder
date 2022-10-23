@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Cosmetic_Finder.Application.Services;
@@ -30,7 +31,10 @@ public class Program
             .Build();
 
         var importService = ActivatorUtilities.CreateInstance<ImportService>(host.Services);
-        await importService.ImportProducts();
+
+        Console.WriteLine("Podaj numer kategorii do importu");
+        var categoryId = Convert.ToInt16(Console.ReadLine());
+        await importService.ImportProducts(categoryId);
     }
 
     private static void BuildConfig(IConfigurationBuilder builder)

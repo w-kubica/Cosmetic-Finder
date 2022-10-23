@@ -11,9 +11,9 @@ public class ImportService : IImportService
         _cosmeticRepository = cosmeticRepository;
     }
 
-    public async Task ImportProducts()
+    public async Task ImportProducts(int categoryId)
     {
-        var products = await CosmeticProvider.ImportProducts();
+        var products = await CosmeticProvider.ImportProducts(categoryId);
 
         var composes = await CosmeticProvider.ImportComposes(products);
 

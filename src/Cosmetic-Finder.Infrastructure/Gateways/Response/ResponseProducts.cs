@@ -28,9 +28,9 @@ public class Product
 }
 public class Picture
 {
-    //public int Id { get; set; }
+    public int Id { get; set; }
     public string Large { get; set; }
-    //public string Type { get; set; }
+    public int Type { get; set; }
 
 }
 

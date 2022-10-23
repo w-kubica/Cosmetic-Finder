@@ -11,15 +11,16 @@ namespace Cosmetic_Finder.Infrastructure.Providers;
 
 public static class CosmeticProvider
 {
-    public static async Task<IEnumerable<Product>> ImportProducts()
+    public static async Task<IEnumerable<Product>> ImportProducts(int category)
     {
+        
         var getProductsTasks = new List<Task<IEnumerable<Product>>>();
 
-        foreach (var category in Categories.CosmeticCategories)
-        {
+        //foreach (var category in Categories.CosmeticCategories)
+        //{
             var task = GettingProductsByCategoryId(category);
             getProductsTasks.Add(task);
-        }
+        //}
 
         await Task.WhenAll(getProductsTasks);
 
@@ -89,44 +90,45 @@ public static class CosmeticProvider
         return new ComposeDto(product.Id, noHtml);
     }
 
-    private static async Task<IEnumerable<Product>> GettingProductsByCategoryId(KeyValuePair<int, string> category)
+    private static async Task<IEnumerable<Product>> GettingProductsByCategoryId(int categoryId)
     {
-        var categoryId = category.Key;
+        //var categoryId = category.Key;
 
         var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
-        var request = await productsApi.Get(8528, 1);
+        var request = await productsApi.Get(categoryId, 1);
         var totalPage = request.Data.TotalPages;
 
         var getProductsTasks = new List<Task<ResponseProducts>>();
 
         for (var k = 1; k <= totalPage; k++)
         {
-            var task = productsApi.Get(8528, k);
+            var task = productsApi.Get(categoryId, k);
             getProductsTasks.Add(task);
         }
 
         await Task.WhenAll(getProductsTasks);
 
-        var products = new List<ResponseProducts>();
+        var products = new List<List<Product>>();
 
         // wyłuskanie danych
         foreach (var productTask in getProductsTasks)
         {
-            var product = await productTask;
+            var product = (await productTask).Data.Products;
             products.Add(product);
         }
+
+        //var te = (await productsApi.Get(categoryId, 10)).Data.Products;
 
         var productsNew = new List<Product>();
 
         foreach (var item in products)
         {
-            productsNew = item.Data.Products;
-            foreach (var product in productsNew)
+            foreach (var product in item)
             {
                 product.MainCategoryId = categoryId;
+                productsNew.Add(product);
             }
         }
-
         return productsNew;
     }
 }

@@ -12,7 +12,7 @@ public class CosmeticRepository : ICosmeticRepository
 {
     private readonly ISolrOperations<SolrCosmetic> _solr;
 
-    private static readonly string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose},{SolrCosmetic.MainCategoryId}";
+    private static readonly string BrandDtoFields = $"{SolrCosmetic.CosmeticId}, {SolrCosmetic.CosmeticCategory}, {SolrCosmetic.CosmeticBrand}, {SolrCosmetic.CosmeticCaption}, {SolrCosmetic.CosmeticPrice},{SolrCosmetic.NavigateUrl},{SolrCosmetic.CosmeticCompose},{SolrCosmetic.MainCategoryId},{SolrCosmetic.CosmeticPicture}";
 
     public CosmeticRepository(ISolrOperations<SolrCosmetic> solr)
     {
@@ -111,8 +111,9 @@ public class CosmeticRepository : ICosmeticRepository
 
     private static void AdditionalConditions(QueryOptions options)
     {
-        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, "Brak danych"));
-        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, "Brak danych;"));
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, "brak danych"));
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, "brak danych;"));
         options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCompose, ""));
+        options.FilterQueries.Add(!new SolrQueryByField(SolrCosmetic.CosmeticCategory, "Włosy-Akcesoria do włosów-Ozdoby do włosów"));
     }
 }
