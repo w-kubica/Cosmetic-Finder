@@ -1,4 +1,4 @@
-namespace Cosmetic_Finder.Infrastructure.Gateways.Response;
+namespace Cosmetic_Finder.Infrastructure.DTO.Rossmann;
 
 public class ResponseProductsAdditionals
 {

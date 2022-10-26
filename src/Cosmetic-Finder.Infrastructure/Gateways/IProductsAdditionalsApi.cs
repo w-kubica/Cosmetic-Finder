@@ -1,4 +1,4 @@
-using Cosmetic_Finder.Infrastructure.Gateways.Response;
+using Cosmetic_Finder.Infrastructure.DTO.Rossmann;
 using Refit;
 
 namespace Cosmetic_Finder.Infrastructure.Gateways;

@@ -1,8 +1,8 @@
 using System.Net;
 using Cosmetic_Finder.Core.Model;
 using Cosmetic_Finder.Infrastructure.DTO;
+using Cosmetic_Finder.Infrastructure.DTO.Rossmann;
 using Cosmetic_Finder.Infrastructure.Gateways;
-using Cosmetic_Finder.Infrastructure.Gateways.Response;
 using Cosmetic_Finder.Infrastructure.UtilsHtml;
 using HtmlAgilityPack;
 using Refit;
@@ -94,7 +94,7 @@ public static class CosmeticProvider
     {
         //var categoryId = category.Key;
 
-        var productsApi = RestService.For<ICategoriesApi>($"{ApiConst.RossmannPortalUrl}/products/api");
+        var productsApi = RestService.For<IProductsApi>($"{ApiConst.RossmannPortalUrl}/products/api");
         var request = await productsApi.Get(categoryId, 1);
         var totalPage = request.Data.TotalPages;
 

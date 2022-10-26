@@ -9,7 +9,6 @@ public class SolrCosmetic
     public const string CosmeticBrand = "brand";
     public const string CosmeticCaption = "caption";
     public const string CosmeticCompose = "compose";
-    public const string CosmeticOldPrice = "oldprice";
     public const string CosmeticPrice = "price";
     public const string MainCategoryId = "mainCategoryId";
     public const string CosmeticCategory = "category";
@@ -32,9 +31,6 @@ public class SolrCosmetic
 
     [SolrField(CosmeticCompose)]
     public string Compose { get; set; }
-
-    [SolrField(CosmeticOldPrice)]
-    public double OldPrice { get; set; }
 
     [SolrField(CosmeticPrice)]
     public double Price { get; set; }

@@ -7,7 +7,7 @@ public static class Categories
         { 8686, "Twarz" },
         { 8528, "Makijaż" },
         { 8655, "Włosy" },
-        { 8625, "Ciało" },
+        { 8628, "Ciało" },
         { 8576, "Higiena" },
         { 9220, "Ochrona antybakteryjna" },
         { 8512, "Perfumy" },

@@ -10,12 +10,10 @@ public static class CosmeticMapper
         return new SolrCosmetic
         {
             Id = cosmetic.Id,
-            Name = cosmetic.Name,
             Brand = cosmetic.Brand,
             Caption = cosmetic.Caption,
             Category = cosmetic.Category,
             Compose = cosmetic.Compose,
-            OldPrice = cosmetic.OldPrice,
             Price = cosmetic.Price,
             MainCategory_Id = cosmetic.MainCategoryId,
             Picture = cosmetic.Picture,
@@ -29,11 +27,9 @@ public static class CosmeticMapper
         {
             Id = solrCosmetic.Id,
             Brand = solrCosmetic.Brand,
-            Name = solrCosmetic.Name,
             Caption = solrCosmetic.Caption,
             Category = solrCosmetic.Category,
             Compose = solrCosmetic.Compose,
-            OldPrice = solrCosmetic.OldPrice,
             Price = solrCosmetic.Price,
             MainCategoryId = solrCosmetic.MainCategory_Id,
             Picture = solrCosmetic.Picture,

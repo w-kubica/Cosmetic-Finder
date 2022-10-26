@@ -1,4 +1,4 @@
-namespace Cosmetic_Finder.Infrastructure.Gateways.Response;
+namespace Cosmetic_Finder.Infrastructure.DTO.Rossmann;
 
 public class ResponseProducts
 {
@@ -21,7 +21,6 @@ public class Product
     public int MainCategoryId { get; set; }
     public string Category { get; set; }
     public double Price { get; set; }
-    public double OldPrice { get; set; }
     public string NavigateUrl { get; set; }
     public List<Picture> Pictures { get; set; }
 
