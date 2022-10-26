@@ -15,10 +15,9 @@ public class CategoriesController : Controller
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Category>> GetCategories()
+    public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
     {
-        var category = _categoryService.GetCategories();
-
-        return Ok(category);
+        var categories = await _categoryService.GetCategories();
+        return Ok(categories);
     }
 }

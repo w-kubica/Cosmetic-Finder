@@ -3,8 +3,7 @@ using Cosmetic_Finder.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cosmetic_Finder.API.Controllers;
-[Route("api/[controller]")]
-[ApiController]
+[Route("[controller]")]
 public class TagsController : ControllerBase
 {
     private readonly ITagService _tagService;

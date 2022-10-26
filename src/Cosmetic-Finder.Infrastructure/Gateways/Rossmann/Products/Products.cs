@@ -1,6 +1,6 @@
-namespace Cosmetic_Finder.Infrastructure.DTO.Rossmann;
+namespace Cosmetic_Finder.Infrastructure.Gateways.Rossmann.Products;
 
-public class ResponseProducts
+public class Products
 {
     public Data Data { get; set; }
 }

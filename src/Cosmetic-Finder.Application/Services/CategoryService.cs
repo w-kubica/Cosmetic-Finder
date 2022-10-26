@@ -1,12 +1,19 @@
 using Cosmetic_Finder.Application.DTO;
-using Cosmetic_Finder.Core.Model;
+using Cosmetic_Finder.Application.Mapper;
+using Cosmetic_Finder.Core.Repositories;
 
 namespace Cosmetic_Finder.Application.Services;
 
 public class CategoryService : ICategoryService
 {
-    public IEnumerable<Category> GetCategories()
+    private readonly ICategoriesRepository _categoriesRepository;
+    public CategoryService(ICategoriesRepository categoriesRepository)
     {
-        return Categories.CosmeticCategories.Select(category => new Category(category.Key, category.Value));
+        _categoriesRepository = categoriesRepository;
+    }
+    public async Task<IEnumerable<CategoryDto>> GetCategories()
+    {
+        var categories = await _categoriesRepository.GetAllAsync();
+        return categories.Select(a => a.ToApplication());
     }
 }

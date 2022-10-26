@@ -1,7 +1,7 @@
 using Cosmetic_Finder.Core.Model;
 using Cosmetic_Finder.Infrastructure.DTO;
-using Cosmetic_Finder.Infrastructure.DTO.Rossmann;
 using Cosmetic_Finder.Infrastructure.Gateways;
+using Cosmetic_Finder.Infrastructure.Gateways.Rossmann.Products;
 
 namespace Cosmetic_Finder.Infrastructure.Mappers;
 

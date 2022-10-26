@@ -9,13 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<ICosmeticService, CosmeticService>();
-builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ICosmeticRepository, CosmeticRepository>();
+
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+
 builder.Services.AddTransient<ITagRepository, TagRepository>();
-
 builder.Services.AddTransient<ITagService, TagService>();
-builder.Services.AddSolrNet<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
 
+builder.Services.AddSolrNet<SolrCosmetic>("http://localhost:8983/solr/cosmetics");
 
 builder.Services.AddDbContext<CosmeticFinderContext>();
 builder.Services.AddControllers();

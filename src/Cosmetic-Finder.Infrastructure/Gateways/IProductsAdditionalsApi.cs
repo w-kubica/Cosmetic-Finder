@@ -1,4 +1,4 @@
-using Cosmetic_Finder.Infrastructure.DTO.Rossmann;
+using Cosmetic_Finder.Infrastructure.Gateways.Rossmann.Products;
 using Refit;
 
 namespace Cosmetic_Finder.Infrastructure.Gateways;
@@ -6,5 +6,5 @@ namespace Cosmetic_Finder.Infrastructure.Gateways;
 public interface IProductsAdditionalsApi
 {
     [Get("/Products/{productId}/additionals")]
-    Task<ResponseProductsAdditionals> Get(int productId);
+    Task<ProductsAdditionals> Get(int productId);
 }

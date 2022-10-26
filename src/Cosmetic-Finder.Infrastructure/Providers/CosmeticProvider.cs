@@ -1,8 +1,7 @@
 using System.Net;
-using Cosmetic_Finder.Core.Model;
 using Cosmetic_Finder.Infrastructure.DTO;
-using Cosmetic_Finder.Infrastructure.DTO.Rossmann;
 using Cosmetic_Finder.Infrastructure.Gateways;
+using Cosmetic_Finder.Infrastructure.Gateways.Rossmann.Products;
 using Cosmetic_Finder.Infrastructure.UtilsHtml;
 using HtmlAgilityPack;
 using Refit;
@@ -13,13 +12,13 @@ public static class CosmeticProvider
 {
     public static async Task<IEnumerable<Product>> ImportProducts(int category)
     {
-        
+
         var getProductsTasks = new List<Task<IEnumerable<Product>>>();
 
-        //foreach (var category in Categories.CosmeticCategories)
+        //foreach (var category in Category.CosmeticCategories)
         //{
-            var task = GettingProductsByCategoryId(category);
-            getProductsTasks.Add(task);
+        var task = GettingProductsByCategoryId(category);
+        getProductsTasks.Add(task);
         //}
 
         await Task.WhenAll(getProductsTasks);
@@ -64,7 +63,7 @@ public static class CosmeticProvider
     {
         var productsApi = RestService.For<IProductsAdditionalsApi>($"{ApiConst.RossmannPortalUrl}/products/api");
 
-        ResponseProductsAdditionals productAdditionals = null;
+        ProductsAdditionals productAdditionals = null;
         try
         {
             productAdditionals = await productsApi.Get(product.Id);
@@ -98,7 +97,7 @@ public static class CosmeticProvider
         var request = await productsApi.Get(categoryId, 1);
         var totalPage = request.Data.TotalPages;
 
-        var getProductsTasks = new List<Task<ResponseProducts>>();
+        var getProductsTasks = new List<Task<Products>>();
 
         for (var k = 1; k <= totalPage; k++)
         {
@@ -131,4 +130,5 @@ public static class CosmeticProvider
         }
         return productsNew;
     }
+
 }

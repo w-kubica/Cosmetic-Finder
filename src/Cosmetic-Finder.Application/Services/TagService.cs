@@ -34,7 +34,6 @@ public class TagService : ITagService
         await _tagRepository.UpdateAsync(tag.ToDomain());
     }
 
-
     public async Task DeleteTagAsync(int id)
     {
         var tag = await _tagRepository.GetByIdAsync(id);
