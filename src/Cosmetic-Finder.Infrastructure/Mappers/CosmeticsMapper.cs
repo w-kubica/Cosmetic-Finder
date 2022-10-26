@@ -5,8 +5,7 @@ using Cosmetic_Finder.Infrastructure.Gateways;
 
 namespace Cosmetic_Finder.Infrastructure.Mappers;
 
-//todo: rename
-public static class CosmeticProfile
+public static class CosmeticsMapper
 {
     public static IEnumerable<Cosmetic> ToDomainCosmetic(this IEnumerable<Product> products, List<ComposeDto> composes)
         => products.Select(product => new Cosmetic
@@ -18,7 +17,6 @@ public static class CosmeticProfile
             Category = product.Category,
             Price = product.Price,
             Compose = composes.FirstOrDefault(c => c.Id == product.Id)?.ProductCompose,
-            // todo: add remove find compose
             MainCategoryId = product.MainCategoryId,
             Picture = product.Pictures?.FirstOrDefault()?.Large
         });
