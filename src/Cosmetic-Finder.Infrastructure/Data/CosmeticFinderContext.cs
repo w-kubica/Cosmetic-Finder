@@ -15,7 +15,7 @@ public class CosmeticFinderContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CosmeticFinderCS"));
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SQLServer"));
     //    optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 
